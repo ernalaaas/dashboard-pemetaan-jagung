@@ -76,5 +76,24 @@ else:
     """
     m.get_root().html.add_child(Element(legend_html))
 
+    # Tambahkan setelah legend_html
+    judul_peta_html = f"""
+    <div style="
+        position: absolute;
+        bottom: 10px; left: 50%; transform: translateX(-50%);
+        z-index: 9999;
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 6px 16px;
+        border: 1px solid #ccc;
+        font-size: 15px;
+        border-radius: 5px;
+        font-weight: bold;
+    ">
+    📍 Pemetaan Fase Tumbuh Jagung pada Bulan {bulan_pilihan}
+    </div>
+    """
+    m.get_root().html.add_child(Element(judul_peta_html))
+    m.get_root().html.add_child(Element(judul_peta_html))
+
     folium.LayerControl().add_to(m)
     st_folium(m, width=1000, height=600)
