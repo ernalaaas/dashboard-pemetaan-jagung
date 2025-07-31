@@ -270,7 +270,7 @@ else:
     st.markdown("<br><br>", unsafe_allow_html=True)
     
     # === Tampilkan peta di tengah laman
-    col1, col2, col3 = st.columns([2, 6, 1])
+    col1, col2, col3 = st.columns([1, 6, 1])
     with col2:
         st_folium(m, width=900, height=600)
 
