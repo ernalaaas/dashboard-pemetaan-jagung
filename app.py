@@ -7,6 +7,16 @@ from folium import Element
 import json
 import geopandas as gpd
 
+
+# Tambahkan di bagian atas aplikasi setelah import
+st.markdown("""
+    <style>
+        html, body, [class*="css"]  {
+            font-size: 20px;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 # === Tambahkan gambar header (cover)
 st.image("data/cover_jagung_crop.jpg", use_container_width=True)
 
