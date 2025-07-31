@@ -91,7 +91,7 @@ with col_tengah:
     gambar_container = st.columns([1] * len(gambar_list))
     for i, path in enumerate(gambar_list):
         with gambar_container[i]:
-            st.image(path, width=200, use_column_width=False)
+            st.image(path, width=200, use_container_width=False)
 
     st.markdown(
         f"<div style='text-align:center; margin-top:12px; font-size:15px; color:#ccc;'>"
