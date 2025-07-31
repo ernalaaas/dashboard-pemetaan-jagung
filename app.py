@@ -64,7 +64,7 @@ else:
             style_function=lambda x: {
                 "fillOpacity": 0,
                 "color": "black",
-                "weight": 1.5
+                "weight": 0.5
             },
             tooltip=folium.GeoJsonTooltip(
                 fields=["NAMOBJ"],  # sesuaikan dengan nama kolom kecamatan di file .shp/.geojson
