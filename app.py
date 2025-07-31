@@ -276,6 +276,20 @@ else:
     col1, col2, col3 = st.columns([1, 6, 1])
     with col2:
         st_folium(m, width=900, height=600)
+    
+        # Auto-scroll ke peta setelah render
+        st.markdown("""
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(function() {
+                const mapFrame = window.parent.document.querySelector('iframe[srcdoc*="folium"]');
+                if (mapFrame) {
+                    mapFrame.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 500); // Delay 0.5 detik agar iframe siap
+        });
+        </script>
+        """, unsafe_allow_html=True)
 
 
 st.markdown("""
