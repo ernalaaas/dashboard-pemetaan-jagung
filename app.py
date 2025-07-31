@@ -27,6 +27,47 @@ with st.sidebar:
     bulan_pilihan = st.selectbox("📅 Pilih Bulan Klasifikasi:", bulan_opsi)
     opacity = st.slider("🌓 Transparansi Layer", 0.0, 1.0, 0.6)
 
+
+st.markdown("### 🗂️ Penjelasan Kelas Fase Tumbuh Jagung")
+
+kelas_opsi = {
+    "Vegetatif Awal (VA)": {
+        "deskripsi": "Jagung baru mulai tumbuh, daun masih sedikit, berwarna hijau segar.",
+        "gambar": ["data/VA.jpg"]
+    },
+    "Vegetatif Akhir (VR)": {
+        "deskripsi": "Daun jagung sudah lebat, tanaman tumbuh cepat dan tinggi.",
+        "gambar": ["data/VR.jpg"]
+    },
+    "Reproduktif Awal (RA)": {
+        "deskripsi": "Fase awal pembentukan bunga jantan dan betina, tongkol mulai muncul.",
+        "gambar": ["data/RA.jpg"]
+    },
+    "Reproduktif Akhir (RR)": {
+        "deskripsi": "Tongkol jagung membesar dan mengisi, tanaman mendekati masa panen.",
+        "gambar": ["data/RR.jpg"]
+    },
+    "Bukan Lahan Jagung": {
+        "deskripsi": "Wilayah yang bukan termasuk area pertanaman jagung, seperti hutan, permukiman, atau sawah.",
+        "gambar": ["data/BJ1.jpg", "data/BJ2.jpg"]
+    }
+}
+
+kelas_dipilih = st.radio("📸 Pilih Kelas untuk Melihat Penjelasan:", list(kelas_opsi.keys()), horizontal=True)
+
+# Tampilkan gambar (bisa 1 atau lebih)
+gambar_list = kelas_opsi[kelas_dipilih]["gambar"]
+col_count = len(gambar_list)
+
+cols = st.columns(col_count)
+for i, path_gambar in enumerate(gambar_list):
+    with cols[i]:
+        st.image(path_gambar, use_column_width=True)
+
+st.markdown(f"**Deskripsi:** {kelas_opsi[kelas_dipilih]['deskripsi']}")
+
+
+
 # === Pemetaan nama bulan ke bahasa Indonesia
 bulan_dict = {
     "01": "Januari", "02": "Februari", "03": "Maret", "04": "April",
