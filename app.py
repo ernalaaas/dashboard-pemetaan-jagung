@@ -42,23 +42,23 @@ kelas_list = [
 
 kelas_opsi = {
     "Vegetatif Awal (VA)": {
-        "deskripsi": "Jagung baru mulai tumbuh, daun masih sedikit, berwarna hijau segar.",
+        "deskripsi": "Fase Vegetatif Awal dimulai saat daun pertama mulai terlihat, dan berakhir ketika tanaman memiliki sekitar 3 hingga 5 daun yang terbuka sempurna",
         "gambar": ["data/VA.jpg"]
     },
     "Vegetatif Akhir (VR)": {
-        "deskripsi": "Daun jagung sudah lebat, tanaman tumbuh cepat dan tinggi.",
+        "deskripsi": "Fase Vegetatif Akhir dimulai setelah terbentuknya daun ke-6 hingga daun terakhir yang terbuka sempurna (sekitar daun ke-15 hingga ke-18), dan berakhir saat munculnya malai (bunga jantan)",
         "gambar": ["data/VR.jpg"]
     },
     "Reproduktif Awal (RA)": {
-        "deskripsi": "Fase awal pembentukan bunga jantan dan betina, tongkol mulai muncul.",
+        "deskripsi": "Fase Reproduktif Awal ditandai dengan munculnya malai (bunga jantan) di bagian atas tanaman serta keluarnya rambut jagung (bunga betina) dari dalam tongkol yang tertutup kelobot. Fase ini berakhir ketika rambut jagung mulai mengering dan biji memasuki tahap masak susu",
         "gambar": ["data/RA.jpg"]
     },
     "Reproduktif Akhir (RR)": {
-        "deskripsi": "Tongkol jagung membesar dan mengisi, tanaman mendekati masa panen.",
+        "deskripsi": "Fase Reproduktif Akhir dimulai ketika bagian dalam biji masih bertekstur seperti pasta (belum mengeras), kemudian berlanjut hingga biji mengeras dan tongkol mengering. Rambut jagung semakin kering dan menghitam, hingga seluruh bagian tongkol hampir kering dan siap untuk dipanen",
         "gambar": ["data/RR.jpg"]
     },
     "Bukan Lahan Jagung": {
-        "deskripsi": "Wilayah yang bukan termasuk area pertanaman jagung, seperti hutan, permukiman, atau sawah.",
+        "deskripsi": "Wilayah yang bukan termasuk area pertanaman jagung, seperti hutan, permukiman, atau sawah",
         "gambar": ["data/BJ1.jpg", "data/BJ2.jpg"]
     }
 }
