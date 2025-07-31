@@ -2,11 +2,11 @@ import streamlit as st
 import folium
 from streamlit_folium import st_folium
 from folium.raster_layers import ImageOverlay
-import os
 from folium import Element
+import os
+import calendar
 
-
-# === Tambahkan di bagian paling atas, sebelum st.title()
+# === Cover image di bagian atas
 st.image("data/cover_jagung_crop.jpg", use_container_width=True)
 
 # === Konfigurasi halaman
@@ -20,10 +20,14 @@ Pilih bulan klasifikasi untuk menampilkan perbedaan fase pertumbuhan dari waktu 
 # === Sidebar
 with st.sidebar:
     st.header("🔧 Pengaturan Visualisasi")
-
     bulan_opsi = ["2024-07", "2024-08", "2024-09", "2024-10", "2024-11", "2024-12"]
     bulan_pilihan = st.selectbox("📅 Pilih Bulan Klasifikasi:", bulan_opsi)
     opacity = st.slider("🌓 Transparansi Layer", 0.0, 1.0, 0.6)
+
+# === Ubah bulan jadi nama lengkap
+bulan_angka = int(bulan_pilihan.split("-")[1])
+nama_bulan = calendar.month_name[bulan_angka]
+tahun = bulan_pilihan.split("-")[0]
 
 # === Path gambar dan koordinat bounds
 image_path = f"data/{bulan_pilihan}.png"
@@ -41,12 +45,14 @@ else:
 
     m = folium.Map(location=[center_lat, center_lon], zoom_start=12)
 
+    # Basemap Google Satellite
     folium.TileLayer(
         tiles="https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
         attr="Google",
         name="Google Satellite"
     ).add_to(m)
 
+    # Overlay klasifikasi
     ImageOverlay(
         image=image_path,
         bounds=image_bounds,
@@ -54,7 +60,7 @@ else:
         name=f"Klasifikasi {bulan_pilihan}"
     ).add_to(m)
 
-    # LEGEND: Selalu tampil (tanpa checkbox)
+    # === Legenda
     legend_html = """
     <div style="
         position: absolute; 
@@ -76,23 +82,24 @@ else:
     """
     m.get_root().html.add_child(Element(legend_html))
 
-    # Tambahkan setelah legend_html
+    # === Judul Peta
     judul_peta_html = f"""
     <div style="
         position: absolute;
-        bottom: 10px; left: 50%; transform: translateX(-50%);
+        bottom: 65px; left: 50%; transform: translateX(-50%);
         z-index: 9999;
-        background-color: rgba(255, 255, 255, 0.8);
+        background-color: rgba(255, 255, 255, 0.85);
         padding: 6px 16px;
         border: 1px solid #ccc;
         font-size: 15px;
         border-radius: 5px;
         font-weight: bold;
+        color: #333;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
     ">
-    📍 Pemetaan Fase Tumbuh Jagung pada Bulan {bulan_pilihan}
+    📍 Pemetaan Fase Tumbuh Jagung pada Bulan {nama_bulan} {tahun}
     </div>
     """
-    m.get_root().html.add_child(Element(judul_peta_html))
     m.get_root().html.add_child(Element(judul_peta_html))
 
     folium.LayerControl().add_to(m)
