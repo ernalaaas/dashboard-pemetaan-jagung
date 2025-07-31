@@ -30,7 +30,7 @@ with st.sidebar:
 
 st.markdown("### 🗂️ Penjelasan Kelas Fase Tumbuh Jagung")
 
-# Urutan kelas untuk slideshow
+# List kelas dan data deskripsi + gambar
 kelas_list = [
     "Vegetatif Awal (VA)",
     "Vegetatif Akhir (VR)",
@@ -39,11 +39,6 @@ kelas_list = [
     "Bukan Lahan Jagung"
 ]
 
-# Pilih indeks kelas via slider
-idx = st.select_slider("➡️ Geser untuk melihat kelas:", options=list(range(len(kelas_list))), format_func=lambda i: kelas_list[i])
-kelas_dipilih = kelas_list[idx]
-
-# Data kelas
 kelas_opsi = {
     "Vegetatif Awal (VA)": {
         "deskripsi": "Jagung baru mulai tumbuh, daun masih sedikit, berwarna hijau segar.",
@@ -67,18 +62,30 @@ kelas_opsi = {
     }
 }
 
-# Tampilkan deskripsi dan gambar
+# Inisialisasi index di session_state
+if "kelas_index" not in st.session_state:
+    st.session_state.kelas_index = 0
+
+col1, col2, col3 = st.columns([1, 6, 1])
+with col1:
+    if st.button("⬅️"):
+        st.session_state.kelas_index = (st.session_state.kelas_index - 1) % len(kelas_list)
+with col3:
+    if st.button("➡️"):
+        st.session_state.kelas_index = (st.session_state.kelas_index + 1) % len(kelas_list)
+
+kelas_dipilih = kelas_list[st.session_state.kelas_index]
+
+# Tampilkan nama kelas dan deskripsi
 st.markdown(f"**Kelas:** {kelas_dipilih}")
 st.markdown(f"**Deskripsi:** {kelas_opsi[kelas_dipilih]['deskripsi']}")
 
-# Gambar ditampilkan kecil & rapi
+# Tampilkan gambar kecil dan rapi
 gambar_list = kelas_opsi[kelas_dipilih]["gambar"]
 cols = st.columns(len(gambar_list))
-for i, img_path in enumerate(gambar_list):
+for i, path_gambar in enumerate(gambar_list):
     with cols[i]:
-        st.image(img_path, width=150)
-
-
+        st.image(path_gambar, width=150)
 
 
 # === Pemetaan nama bulan ke bahasa Indonesia
