@@ -308,4 +308,10 @@ Terima kasih sudah menjelajahi dashboard ini — semoga bermanfaat, dan terus du
 </div>
 """, unsafe_allow_html=True)
 
+st.markdown("""
+<hr style="margin-top: 50px; margin-bottom: 10px;">
+<div style='text-align: center; font-size: 14px; color: grey;'>
+Dikembangkan oleh <b>Krizz</b> &nbsp;|&nbsp; 2025
+</div>
+""", unsafe_allow_html=True)
 
