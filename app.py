@@ -12,59 +12,68 @@ st.image("data/cover_jagung_crop.jpg", use_container_width=True)
 st.set_page_config(layout="wide")
 st.markdown("""
 <style>
-    /* === WARNA DASAR === */
+    /* === DASAR UMUM === */
     html, body, .main {
-        background-color: #fdfbec !important;  /* Konten utama (lebih terang) */
+        background-color: #fdf9e6 !important;  /* Latar belakang konten utama */
+        color: #2c2c2c;
+    }
+
+    .block-container {
+        background-color: #fdf9e6 !important;
+        padding-top: 1rem;
     }
 
     /* === SIDEBAR === */
     section[data-testid="stSidebar"] {
-        background-color: #e0ddc1 !important;  /* Sidebar lebih gelap */
-        color: #333 !important;
+        background-color: #b6b565 !important;  /* Lebih gelap dan hijau tua */
+        color: #1e1e1e !important;
     }
 
     header[data-testid="stHeader"] {
-        background-color: #e0ddc1 !important;  /* Header atas sidebar */
-        border-bottom: 1px solid #c7c4a4;
+        background-color: #b6b565 !important;
+        border-bottom: 1px solid #a3a357;
+        color: #1e1e1e !important;
     }
 
-    /* === LABEL, SLIDER, TEKS DI SIDEBAR === */
+    /* Top bar kanan */
+    header[data-testid="stHeader"] * {
+        color: #1e1e1e !important;
+    }
+
+    /* === TEKS & LABEL DI SIDEBAR === */
     .st-emotion-cache-1v0mbdj, 
     .st-emotion-cache-10trblm, 
-    label, .stSlider > div, .stSelectbox label {
-        color: #3b3a2d !important;
+    label, .stSelectbox label {
+        color: #222 !important;
         font-weight: 600;
     }
 
     /* === SLIDER (warna track & thumb) === */
     .stSlider > div[data-baseweb="slider"] > div {
-        background: #b6b31e !important;
+        background: #8c861f !important;  /* track */
+    }
+    .stSlider .css-1aumxhk {  /* slider value text */
+        color: #2d2d1e !important;
     }
 
-    /* === TOMBOL (jika ada) === */
+    /* === TOMBOL JIKA ADA === */
     .stButton>button {
         background-color: #8a8426 !important;
         color: white !important;
         border-radius: 5px;
         border: none;
     }
-
     .stButton>button:hover {
         background-color: #b3ad3c !important;
     }
 
-    /* === KONTEN UTAMA === */
-    .block-container {
-        background-color: #fdfbec !important;
-        padding-top: 1rem;
-    }
-
-    h1, h2, h3 {
-        color: #4c4b2a !important;
+    /* === TEKS UMUM DAN JUDUL === */
+    h1, h2, h3, h4 {
+        color: #4b4a23 !important;
     }
 
     .stMarkdown, .css-1cpxqw2, .stText {
-        color: #2e2d1e !important;
+        color: #2f2f1e !important;
     }
 
     /* === SCROLLBAR === */
@@ -72,11 +81,12 @@ st.markdown("""
         width: 8px;
     }
     ::-webkit-scrollbar-thumb {
-        background-color: #a39f41;
+        background-color: #8c861f;
         border-radius: 10px;
     }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 st.title("🌽 Dashboard Pemetaan Fase Tumbuh Jagung")
