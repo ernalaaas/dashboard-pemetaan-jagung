@@ -1,7 +1,9 @@
 streamlit
 folium
 streamlit-folium
-rasterio
-numpy
-matplotlib
-requests
+geopandas
+pandas
+shapely
+fiona
+pyproj
+branca
