@@ -119,6 +119,8 @@ with col2:
         unsafe_allow_html=True
     )
 
+    st.markdown("<br><br>", unsafe_allow_html=True)
+
 # === Panah Kanan ===
 with col3:
     st.markdown("<div style='padding-top:180px'></div>", unsafe_allow_html=True)
