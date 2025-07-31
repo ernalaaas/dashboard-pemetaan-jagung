@@ -1,108 +1,83 @@
 import streamlit as st
 import folium
+from streamlit_folium import st_folium
 import numpy as np
 import rasterio
-from folium import raster_layers
-from streamlit_folium import st_folium
+from folium.raster_layers import ImageOverlay
+from rasterio.plot import reshape_as_image
+from rasterio.enums import Resampling
+from matplotlib import cm
 import matplotlib.pyplot as plt
 import os
-import gdown
+import requests
 
-# === Konfigurasi halaman ===
 st.set_page_config(layout="wide")
 st.title("Dashboard Pemetaan Fase Tumbuh Jagung 🌽")
-st.markdown("**Basemap:** Google Satellite | **Overlay:** Hasil klasifikasi fase tumbuh jagung")
+st.markdown("Peta interaktif hasil klasifikasi fase tumbuh jagung di Kabupaten Karo.")
 
 # === Sidebar ===
 with st.sidebar:
-    st.header("Pengaturan")
-    opacity = st.slider("Transparansi layer klasifikasi", 0.0, 1.0, 0.6)
-    uploaded_file = st.file_uploader("Upload file .tif hasil klasifikasi", type=["tif"])
+    st.header("Pengaturan Layer")
+    opacity = st.slider("Transparansi Layer", 0.0, 1.0, 0.6)
+    uploaded_file = st.file_uploader("Upload file raster (.tif)", type=["tif", "tiff"])
 
-# === Unduh raster dari Google Drive jika belum ada ===
-file_id = "19gAUxtX8kmCrdQypFF46UqiEWXtLLyEG"  # Ganti dengan ID kamu
-default_path = "data/hasil_klasifikasi.tif"
+# === File default dari Google Drive ===
+output_path = "data/hasil_klasifikasi.tif"
+gdrive_url = "https://drive.google.com/uc?id=19gAUxtX8kmCrdQypFF46UqiEWXtLLyEG"
 
-if not os.path.exists("data"):
-    os.makedirs("data")
+if not os.path.exists(output_path):
+    with st.spinner("📥 Mengunduh file raster dari Google Drive..."):
+        r = requests.get(gdrive_url)
+        os.makedirs("data", exist_ok=True)
+        with open(output_path, "wb") as f:
+            f.write(r.content)
 
-if uploaded_file:
-    with open(default_path, "wb") as f:
-        f.write(uploaded_file.read())
-    st.success("✅ File berhasil diunggah dan digunakan.")
-elif not os.path.exists(default_path):
-    st.info("⏳ Mengunduh file dari Google Drive...")
-    gdown.download(f"https://drive.google.com/uc?id={file_id}", default_path, quiet=False)
-    st.success("✅ Unduhan selesai.")
-else:
-    st.info("📂 Menggunakan file lokal yang sudah ada.")
+# === Fungsi untuk membaca dan mengatur warna dari raster ===
+def load_raster_colormap(raster_array):
+    colormap = cm.get_cmap('tab10', np.max(raster_array))
+    colored = colormap(raster_array / np.max(raster_array))
+    return (colored[:, :, :3] * 255).astype(np.uint8)
 
-# === Fungsi bantu: konversi klasifikasi ke RGBA ===
-def klasifikasi_to_rgb(image, colormap):
-    rgb_img = np.zeros((image.shape[0], image.shape[1], 4), dtype=np.uint8)
-    for val, hex_color in colormap.items():
-        mask = image == val
-        rgba = tuple(int(hex_color.lstrip("#")[i:i+2], 16) for i in (0, 2, 4)) + (150,)
-        rgb_img[mask] = rgba
-    return rgb_img
+# === Proses dan tampilkan peta ===
+try:
+    if uploaded_file is not None:
+        st.success("✅ File klasifikasi berhasil diunggah dan digunakan.")
+        src = rasterio.open(uploaded_file)
+    else:
+        src = rasterio.open(output_path)
 
-# === Proses file raster dan tampilkan di peta ===
-if os.path.exists(default_path):
-    with rasterio.open(default_path) as src:
-        image = src.read(1)
-        bounds = src.bounds
+    data = src.read(1, resampling=Resampling.nearest)
+    bounds = src.bounds
+    extent = [[bounds.bottom, bounds.left], [bounds.top, bounds.right]]
 
-    kelas_warna = {
-        1: "#66c2a5",  # Vegetatif Awal
-        2: "#fc8d62",  # Vegetatif Akhir
-        3: "#8da0cb",  # Reproduktif Awal
-        4: "#e78ac3",  # Reproduktif Akhir
-        5: "#a6d854"   # Bukan lahan jagung
-    }
+    # Ubah data menjadi citra RGB dengan colormap
+    image_rgb = load_raster_colormap(data)
 
-    rgb_image = klasifikasi_to_rgb(image, kelas_warna)
-    temp_img = "temp_overlay.png"
-    plt.imsave(temp_img, rgb_image)
+    # Buat peta dan tampilkan layer citra
+    m = folium.Map(location=[3.2, 98.4], zoom_start=11, tiles="CartoDB positron")
 
-    # Lokasi tengah peta
-    center = [(bounds.top + bounds.bottom) / 2, (bounds.left + bounds.right) / 2]
-    m = folium.Map(location=center, zoom_start=12)
-
-    # Basemap Google Satellite
+    # Tambahkan basemap Google Satellite
     folium.TileLayer(
-        tiles="https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
-        attr="Google",
-        name="Google Satellite",
+        tiles='https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
+        attr='Google Satellite',
+        name='Google Satellite',
         overlay=False,
         control=True
     ).add_to(m)
 
-    # Overlay raster klasifikasi
-    image_bounds = [[bounds.bottom, bounds.left], [bounds.top, bounds.right]]
-    raster_layers.ImageOverlay(
-        image=temp_img,
-        bounds=image_bounds,
+    # Layer klasifikasi
+    ImageOverlay(
+        image=image_rgb,
+        bounds=extent,
         opacity=opacity,
-        name="Klasifikasi Fase Tumbuh"
+        name="Hasil Klasifikasi",
+        interactive=True,
+        cross_origin=False,
+        zindex=1
     ).add_to(m)
-
-    # Legenda
-    legend_html = """
-    <div style="position: fixed; 
-                bottom: 20px; left: 20px; width: 240px; height: 160px; 
-                background-color: white; z-index:9999; font-size:14px;
-                border:2px solid gray; padding:10px;">
-    <b>Legenda Kelas:</b><br>
-    <i style="background:#66c2a5;width:12px;height:12px;display:inline-block;"></i> Vegetatif Awal<br>
-    <i style="background:#fc8d62;width:12px;height:12px;display:inline-block;"></i> Vegetatif Akhir<br>
-    <i style="background:#8da0cb;width:12px;height:12px;display:inline-block;"></i> Reproduktif Awal<br>
-    <i style="background:#e78ac3;width:12px;height:12px;display:inline-block;"></i> Reproduktif Akhir<br>
-    <i style="background:#a6d854;width:12px;height:12px;display:inline-block;"></i> Bukan Lahan Jagung<br>
-    </div>
-    """
-    m.get_root().html.add_child(folium.Element(legend_html))
 
     folium.LayerControl().add_to(m)
     st_folium(m, width=1000, height=600)
-else:
-    st.error("❌ File raster belum ditemukan.")
+
+except Exception as e:
+    st.error(f"❌ Gagal memuat raster: {e}")
