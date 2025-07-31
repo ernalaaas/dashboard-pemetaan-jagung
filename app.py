@@ -30,7 +30,7 @@ with st.sidebar:
 
 st.markdown("### 🗂️ Penjelasan Kelas Fase Tumbuh Jagung")
 
-# === Data kelas
+# Data kelas
 kelas_list = [
     "Vegetatif Awal (VA)",
     "Vegetatif Akhir (VR)",
@@ -62,47 +62,48 @@ kelas_opsi = {
     }
 }
 
-# State index
+# Inisialisasi index
 if "kelas_index" not in st.session_state:
     st.session_state.kelas_index = 0
 
-# === Layout: Tombol kiri - Konten tengah - Tombol kanan
-col_kiri, col_tengah, col_kanan = st.columns([1, 10, 1])
+# Layout 3 kolom
+col_kiri, col_tengah, col_kanan = st.columns([1, 6, 1])
 
-# Navigasi tombol
+# === Tombol panah kiri ===
 with col_kiri:
-    st.markdown("<div style='height: 100px;'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='padding-top:120px'></div>", unsafe_allow_html=True)
     if st.button("⬅️", use_container_width=True):
         st.session_state.kelas_index = (st.session_state.kelas_index - 1) % len(kelas_list)
 
+# === Konten Tengah ===
+kelas_dipilih = kelas_list[st.session_state.kelas_index]
+with col_tengah:
+    with st.container():
+        st.markdown(
+            f"<h2 style='text-align:center'>{kelas_dipilih}</h2>",
+            unsafe_allow_html=True
+        )
+
+        gambar_list = kelas_opsi[kelas_dipilih]["gambar"]
+        # Tampilkan semua gambar di tengah
+        for path in gambar_list:
+            st.image(path, use_container_width=False, width=300)
+
+        st.markdown(
+            f"<p style='text-align:center; font-size:16px; margin-top:10px;'>{kelas_opsi[kelas_dipilih]['deskripsi']}</p>",
+            unsafe_allow_html=True
+        )
+        st.markdown(
+            f"<p style='text-align:center; color:gray;'>Kelas {st.session_state.kelas_index + 1} dari {len(kelas_list)}</p>",
+            unsafe_allow_html=True
+        )
+
+# === Tombol panah kanan ===
 with col_kanan:
-    st.markdown("<div style='height: 100px;'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='padding-top:120px'></div>", unsafe_allow_html=True)
     if st.button("➡️", use_container_width=True):
         st.session_state.kelas_index = (st.session_state.kelas_index + 1) % len(kelas_list)
 
-# Konten tengah
-kelas_dipilih = kelas_list[st.session_state.kelas_index]
-with col_tengah:
-    st.markdown(f"<h4 style='text-align:center'>{kelas_dipilih}</h4>", unsafe_allow_html=True)
-
-    gambar_list = kelas_opsi[kelas_dipilih]["gambar"]
-
-    # Kolom tengah gambar, tetap simetris meskipun 1 atau 2 gambar
-    gambar_container = st.columns([1] * len(gambar_list))
-    for i, path in enumerate(gambar_list):
-        with gambar_container[i]:
-            st.image(path, width=200, use_container_width=False)
-
-    st.markdown(
-        f"<div style='text-align:center; margin-top:12px; font-size:15px; color:#ccc;'>"
-        f"{kelas_opsi[kelas_dipilih]['deskripsi']}</div>",
-        unsafe_allow_html=True
-    )
-
-    st.markdown(
-        f"<p style='text-align:center; font-size:13px; color:gray;'>Kelas {st.session_state.kelas_index + 1} dari {len(kelas_list)}</p>",
-        unsafe_allow_html=True
-    )
 
 
 
