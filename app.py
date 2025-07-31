@@ -5,6 +5,10 @@ from folium.raster_layers import ImageOverlay
 import os
 from folium import Element
 
+
+# === Tambahkan di bagian paling atas, sebelum st.title()
+st.image("data/cover_dashboard_jagung.jpg", use_column_width=True)
+
 # === Konfigurasi halaman
 st.set_page_config(layout="wide")
 st.title("🌽 Dashboard Pemetaan Fase Tumbuh Jagung")
