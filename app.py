@@ -30,7 +30,7 @@ with st.sidebar:
 
 st.markdown("### 🗂️ Penjelasan Kelas Fase Tumbuh Jagung")
 
-# Data kelas dan isi
+# === Data
 kelas_list = [
     "Vegetatif Awal (VA)",
     "Vegetatif Akhir (VR)",
@@ -62,38 +62,47 @@ kelas_opsi = {
     }
 }
 
-# Inisialisasi index
+# Inisialisasi state
 if "kelas_index" not in st.session_state:
     st.session_state.kelas_index = 0
 
-# Layout 3 kolom: Panah kiri - Konten tengah - Panah kanan
-col_kiri, col_tengah, col_kanan = st.columns([1, 5, 1])
+# Layout dengan 3 kolom: kiri (tombol) - tengah (konten) - kanan (tombol)
+col_kiri, col_tengah, col_kanan = st.columns([1, 6, 1])
 
-# Panah navigasi
+# Tombol kiri
 with col_kiri:
-    if st.button("⬅️", use_container_width=True):
+    st.markdown("<div style='height: 120px;'></div>", unsafe_allow_html=True)  # spacer
+    if st.button("⬅️", key="prev", use_container_width=True):
         st.session_state.kelas_index = (st.session_state.kelas_index - 1) % len(kelas_list)
 
-with col_kanan:
-    if st.button("➡️", use_container_width=True):
-        st.session_state.kelas_index = (st.session_state.kelas_index + 1) % len(kelas_list)
-
-# Konten di tengah (terpusat)
+# Konten tengah
 kelas_dipilih = kelas_list[st.session_state.kelas_index]
 with col_tengah:
     st.markdown(f"<h4 style='text-align:center'>{kelas_dipilih}</h4>", unsafe_allow_html=True)
 
     gambar_list = kelas_opsi[kelas_dipilih]["gambar"]
-    gambar_cols = st.columns(len(gambar_list))
+    col_gbr = st.columns(len(gambar_list))
     for i, path in enumerate(gambar_list):
-        with gambar_cols[i]:
+        with col_gbr[i]:
             st.image(path, width=150)
 
     st.markdown(
-        f"<div style='text-align:center; margin-top:10px; font-size:15px; color:#444;'>"
-        f"{kelas_opsi[kelas_dipilih]['deskripsi']}</div>",
+        f"<p style='text-align:center; margin-top:10px; font-size:15px; color:#444;'>"
+        f"{kelas_opsi[kelas_dipilih]['deskripsi']}</p>",
         unsafe_allow_html=True
     )
+
+    st.markdown(
+        f"<p style='text-align:center; font-size:13px; color:gray;'>Kelas {st.session_state.kelas_index + 1} dari {len(kelas_list)}</p>",
+        unsafe_allow_html=True
+    )
+
+# Tombol kanan
+with col_kanan:
+    st.markdown("<div style='height: 120px;'></div>", unsafe_allow_html=True)  # spacer
+    if st.button("➡️", key="next", use_container_width=True):
+        st.session_state.kelas_index = (st.session_state.kelas_index + 1) % len(kelas_list)
+
 
 
 
