@@ -83,17 +83,31 @@ with col2:
 
     st.markdown(f"<h2 style='text-align:center'>{kelas}</h2>", unsafe_allow_html=True)
 
-    for path in data["gambar"]:
-        # Buka file gambar dan konversi ke base64
-        with open(path, "rb") as f:
-            img_data = f.read()
-            img_base64 = base64.b64encode(img_data).decode("utf-8")
-            img_html = f"""
-                <div style='text-align:center;'>
-                    <img src='data:image/png;base64,{img_base64}' style='width:300px; border-radius:8px; margin:10px auto;'/>
-                </div>
-            """
-            st.markdown(img_html, unsafe_allow_html=True)
+    if kelas == "Bukan Lahan Jagung":
+        col_a, col_b = st.columns(2)
+        for i, col in enumerate([col_a, col_b]):
+            with col:
+                path = data["gambar"][i]
+                with open(path, "rb") as f:
+                    img_data = f.read()
+                    img_base64 = base64.b64encode(img_data).decode("utf-8")
+                    img_html = f"""
+                        <div style='text-align:center;'>
+                            <img src='data:image/png;base64,{img_base64}' style='width:100%; max-width:300px; border-radius:8px; margin:10px auto;'/>
+                        </div>
+                    """
+                    st.markdown(img_html, unsafe_allow_html=True)
+    else:
+        for path in data["gambar"]:
+            with open(path, "rb") as f:
+                img_data = f.read()
+                img_base64 = base64.b64encode(img_data).decode("utf-8")
+                img_html = f"""
+                    <div style='text-align:center;'>
+                        <img src='data:image/png;base64,{img_base64}' style='width:300px; border-radius:8px; margin:10px auto;'/>
+                    </div>
+                """
+                st.markdown(img_html, unsafe_allow_html=True)
 
     st.markdown(
         f"<p style='text-align:center; font-size:16px; margin-top:10px;'>{data['deskripsi']}</p>",
