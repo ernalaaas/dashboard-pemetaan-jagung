@@ -14,47 +14,43 @@ st.markdown("""
 <style>
     /* === SIDEBAR === */
     section[data-testid="stSidebar"] {
-        background-color: #f4f3e2;
-        color: #6b7317;
+        background-color: #f4f3e2 !important;
+        color: #6b7317 !important;
     }
 
-    /* Label dan teks sidebar */
-    .st-emotion-cache-1v0mbdj, .st-emotion-cache-10trblm, label {
+    /* Label & teks sidebar */
+    .st-emotion-cache-1v0mbdj, .st-emotion-cache-10trblm, label, .stSlider > div {
         color: #6b7317 !important;
         font-weight: 600;
     }
 
-    /* Slider (transparansi) */
-    .stSlider > div {
-        color: #b1a500;
+    /* === KONTEN UTAMA === */
+    .block-container {
+        background-color: #fefeee !important;
+        padding-top: 1rem;
     }
 
-    /* === TAMPILAN UMUM === */
-    html, body {
-        background-color: #111; /* warna gelap global */
-    }
-
+    /* Teks judul dan paragraf */
     h1, h2, h3 {
-        color: #6b7317;
+        color: #6b7317 !important;
     }
 
-    /* Teks utama & paragraf */
-    .stMarkdown, .css-1cpxqw2 {
-        color: #ddddcc;
+    .stMarkdown, .css-1cpxqw2, .stText {
+        color: #333333 !important;
     }
 
-    /* Tombol / aksen */
+    /* Tombol */
     .stButton>button {
-        background-color: #888414;
-        color: white;
+        background-color: #888414 !important;
+        color: white !important;
         border-radius: 5px;
         border: none;
     }
     .stButton>button:hover {
-        background-color: #b1a500;
+        background-color: #b1a500 !important;
     }
 
-    /* Peta judul */
+    /* Judul peta (leaflet attribution) */
     .leaflet-control .leaflet-control-attribution {
         background-color: #b1a500 !important;
         color: white !important;
@@ -71,6 +67,7 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 st.title("🌽 Dashboard Pemetaan Fase Tumbuh Jagung")
