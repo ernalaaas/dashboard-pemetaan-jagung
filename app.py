@@ -2,11 +2,10 @@ import streamlit as st
 import folium
 from streamlit_folium import st_folium
 from folium.raster_layers import ImageOverlay
-from folium import Element
 import os
-import calendar
+from folium import Element
 
-# === Cover image di bagian atas
+# === Tambahkan gambar header (cover)
 st.image("data/cover_jagung_crop.jpg", use_container_width=True)
 
 # === Konfigurasi halaman
@@ -24,10 +23,14 @@ with st.sidebar:
     bulan_pilihan = st.selectbox("📅 Pilih Bulan Klasifikasi:", bulan_opsi)
     opacity = st.slider("🌓 Transparansi Layer", 0.0, 1.0, 0.6)
 
-# === Ubah bulan jadi nama lengkap
-bulan_angka = int(bulan_pilihan.split("-")[1])
-nama_bulan = calendar.month_name[bulan_angka]
-tahun = bulan_pilihan.split("-")[0]
+# === Pemetaan nama bulan ke bahasa Indonesia
+bulan_dict = {
+    "01": "Januari", "02": "Februari", "03": "Maret", "04": "April",
+    "05": "Mei", "06": "Juni", "07": "Juli", "08": "Agustus",
+    "09": "September", "10": "Oktober", "11": "November", "12": "Desember"
+}
+tahun, kode_bulan = bulan_pilihan.split("-")
+nama_bulan_indo = bulan_dict[kode_bulan]
 
 # === Path gambar dan koordinat bounds
 image_path = f"data/{bulan_pilihan}.png"
@@ -45,7 +48,7 @@ else:
 
     m = folium.Map(location=[center_lat, center_lon], zoom_start=12)
 
-    # Basemap Google Satellite
+    # Basemap
     folium.TileLayer(
         tiles="https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
         attr="Google",
@@ -60,7 +63,7 @@ else:
         name=f"Klasifikasi {bulan_pilihan}"
     ).add_to(m)
 
-    # === Legenda
+    # === Legenda warna
     legend_html = """
     <div style="
         position: absolute; 
@@ -82,22 +85,20 @@ else:
     """
     m.get_root().html.add_child(Element(legend_html))
 
-    # === Judul Peta
+    # === Judul peta di bawah tengah
     judul_peta_html = f"""
     <div style="
         position: absolute;
-        bottom: 65px; left: 50%; transform: translateX(-50%);
+        bottom: 10px; left: 50%; transform: translateX(-50%);
         z-index: 9999;
-        background-color: rgba(255, 255, 255, 0.85);
+        background-color: rgba(255, 255, 255, 0.8);
         padding: 6px 16px;
         border: 1px solid #ccc;
         font-size: 15px;
         border-radius: 5px;
         font-weight: bold;
-        color: #333;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
     ">
-    📍 Pemetaan Fase Tumbuh Jagung pada Bulan {nama_bulan} {tahun}
+    📍 Pemetaan Fase Tumbuh Jagung pada Bulan {nama_bulan_indo} {tahun}
     </div>
     """
     m.get_root().html.add_child(Element(judul_peta_html))
