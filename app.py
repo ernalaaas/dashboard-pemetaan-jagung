@@ -311,7 +311,8 @@ Terima kasih sudah menjelajahi dashboard ini — semoga bermanfaat, dan terus du
 st.markdown("""
 <hr style="margin-top: 50px; margin-bottom: 10px;">
 <div style='text-align: center; font-size: 14px; color: grey;'>
-Dikembangkan oleh <b>Krizz</b> &nbsp;|&nbsp; 2025
+Dikembangkan oleh <b>Kristian Ernala Wicaksono</b> &nbsp;|&nbsp; Politeknik Statistika STIS &nbsp;|&nbsp; 2025
 </div>
 """, unsafe_allow_html=True)
+
 
