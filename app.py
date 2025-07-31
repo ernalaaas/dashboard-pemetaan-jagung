@@ -89,18 +89,21 @@ else:
     judul_peta_html = f"""
     <div style="
         position: absolute;
-        bottom: 10px; left: 50%; transform: translateX(-50%);
+        bottom: 50px; left: 50%; transform: translateX(-50%);
         z-index: 9999;
-        background-color: rgba(255, 255, 255, 0.8);
-        padding: 6px 16px;
-        border: 1px solid #ccc;
-        font-size: 15px;
-        border-radius: 5px;
+        background-color: #ffffffee;
+        padding: 10px 24px;
+        border: 2px solid #666;
+        font-size: 16px;
+        border-radius: 6px;
         font-weight: bold;
+        color: #333;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
     ">
-    📍 Pemetaan Fase Tumbuh Jagung pada Bulan {nama_bulan_indo} {tahun}
+    📍 Pemetaan Fase Tumbuh Jagung — {nama_bulan_indo} {tahun}
     </div>
     """
+
     m.get_root().html.add_child(Element(judul_peta_html))
 
     folium.LayerControl().add_to(m)
