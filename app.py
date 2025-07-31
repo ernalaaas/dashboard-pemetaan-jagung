@@ -19,7 +19,8 @@ with st.sidebar:
 
 # === Unduh dari Google Drive jika belum ada lokal ===
 # Ganti file_id ini dengan ID dari link Drive kamu
-file_id = "1A2B3C4D5EfGhIjKlmNOPQ"  # <== GANTI dengan ID milikmu
+#2024-07
+file_id = "19gAUxtX8kmCrdQypFF46UqiEWXtLLyEG"  # <== GANTI dengan ID milikmu
 output_path = "data/hasil_klasifikasi.tif"
 
 if not os.path.exists("data"):
