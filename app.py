@@ -11,81 +11,46 @@ st.image("data/cover_jagung_crop.jpg", use_container_width=True)
 # === Konfigurasi halaman
 st.set_page_config(layout="wide")
 st.markdown("""
-<style>
-    /* === DASAR UMUM === */
-    html, body, .main {
-        background-color: #fdf9e6 !important;  /* Latar belakang konten utama */
-        color: #2c2c2c;
+    <style>
+    /* Selaraskan background konten dan sidebar */
+    .main {
+        background-color: #f9f7e8;  /* warna konten */
     }
-
-    .block-container {
-        background-color: #fdf9e6 !important;
-        padding-top: 1rem;
-    }
-
-    /* === SIDEBAR === */
     section[data-testid="stSidebar"] {
-        background-color: #b6b565 !important;  /* Lebih gelap dan hijau tua */
-        color: #1e1e1e !important;
+        background-color: #c9cb9c !important;  /* sidebar lebih gelap */
     }
 
+    /* Ubah warna slider agar sesuai tema */
+    input[type=range]::-webkit-slider-thumb {
+        background: #6a742f;
+        border: 1px solid #444;
+    }
+    input[type=range]::-webkit-slider-runnable-track {
+        background: #b2b955;
+    }
+
+    /* Untuk browser non-Chrome */
+    input[type=range]::-moz-range-thumb {
+        background: #6a742f;
+        border: 1px solid #444;
+    }
+    input[type=range]::-moz-range-track {
+        background: #b2b955;
+    }
+
+    /* Ubah warna font di topbar */
     header[data-testid="stHeader"] {
-        background-color: #b6b565 !important;
-        border-bottom: 1px solid #a3a357;
-        color: #1e1e1e !important;
+        color: #3a3a3a;
+        background-color: #f4f4d0 !important;
     }
 
-    /* Top bar kanan */
-    header[data-testid="stHeader"] * {
-        color: #1e1e1e !important;
+    /* Hindari font putih di topbar */
+    header[data-testid="stHeader"] .css-18ni7ap {
+        color: #3a3a3a !important;
     }
-
-    /* === TEKS & LABEL DI SIDEBAR === */
-    .st-emotion-cache-1v0mbdj, 
-    .st-emotion-cache-10trblm, 
-    label, .stSelectbox label {
-        color: #222 !important;
-        font-weight: 600;
-    }
-
-    /* === SLIDER (warna track & thumb) === */
-    .stSlider > div[data-baseweb="slider"] > div {
-        background: #8c861f !important;  /* track */
-    }
-    .stSlider .css-1aumxhk {  /* slider value text */
-        color: #2d2d1e !important;
-    }
-
-    /* === TOMBOL JIKA ADA === */
-    .stButton>button {
-        background-color: #8a8426 !important;
-        color: white !important;
-        border-radius: 5px;
-        border: none;
-    }
-    .stButton>button:hover {
-        background-color: #b3ad3c !important;
-    }
-
-    /* === TEKS UMUM DAN JUDUL === */
-    h1, h2, h3, h4 {
-        color: #4b4a23 !important;
-    }
-
-    .stMarkdown, .css-1cpxqw2, .stText {
-        color: #2f2f1e !important;
-    }
-
-    /* === SCROLLBAR === */
-    ::-webkit-scrollbar {
-        width: 8px;
-    }
-    ::-webkit-scrollbar-thumb {
-        background-color: #8c861f;
-        border-radius: 10px;
-    }
-</style>
+    </style>
 """, unsafe_allow_html=True)
+
 
 
 
