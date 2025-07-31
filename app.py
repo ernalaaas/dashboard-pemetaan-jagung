@@ -69,7 +69,7 @@ if "kelas_index" not in st.session_state:
 # === Layout Utama ===
 col1, col2, col3 = st.columns([1, 6, 1])
 
-# === Panah Kiri ===
+# === Tombol Kiri ===
 with col1:
     st.markdown("<div style='padding-top:150px'></div>", unsafe_allow_html=True)
     if st.button("⬅️", use_container_width=True):
@@ -85,27 +85,29 @@ with col2:
 
     for path in gambar_list:
         st.markdown(
-            f\"\"\"<div style='text-align:center'>
-                    <img src='{path}' style='width:250px; border-radius:10px; margin-bottom:10px;' />
-                </div>\"\"\", 
+            f"""
+            <div style='text-align:center'>
+                <img src='{path}' style='width:250px; border-radius:10px; margin-bottom:10px;' />
+            </div>
+            """,
             unsafe_allow_html=True
         )
 
     st.markdown(
-        f\"\"\"<p style='text-align:center; font-size:16px; margin-top:10px;'>{deskripsi}</p>\"\"\", 
-        unsafe_allow_html=True
-    )
-    st.markdown(
-        f\"\"\"<p style='text-align:center; color:gray;'>Kelas {st.session_state.kelas_index + 1} dari {len(kelas_list)}</p>\"\"\", 
+        f"<p style='text-align:center; font-size:16px; margin-top:10px;'>{deskripsi}</p>", 
         unsafe_allow_html=True
     )
 
-# === Panah Kanan ===
+    st.markdown(
+        f"<p style='text-align:center; color:gray;'>Kelas {st.session_state.kelas_index + 1} dari {len(kelas_list)}</p>", 
+        unsafe_allow_html=True
+    )
+
+# === Tombol Kanan ===
 with col3:
     st.markdown("<div style='padding-top:150px'></div>", unsafe_allow_html=True)
     if st.button("➡️", use_container_width=True):
         st.session_state.kelas_index = (st.session_state.kelas_index + 1) % len(kelas_list)
-
 
 
 
