@@ -5,6 +5,24 @@ from folium.raster_layers import ImageOverlay
 import os
 from folium import Element
 
+# Tambahkan ini di bagian paling atas
+st.markdown("""
+    <style>
+    .cover-container {
+        height: 150px;             /* atur tinggi gambar di sini */
+        overflow: hidden;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+    .cover-container img {
+        width: 100%;
+        object-fit: cover;
+    }
+    </style>
+    <div class="cover-container">
+        <img src="https://raw.githubusercontent.com/ernalaaas/dashboard-pemetaan-jagung/main/data/cover_dashboard_jagung.jpg">
+    </div>
+""", unsafe_allow_html=True)
 
 # === Tambahkan di bagian paling atas, sebelum st.title()
 st.image("data/cover_dashboard_jagung.jpg", use_container_width=True)
