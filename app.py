@@ -12,34 +12,66 @@ st.image("data/cover_jagung_crop.jpg", use_container_width=True)
 st.set_page_config(layout="wide")
 st.markdown("""
 <style>
-    /* Warna latar sidebar */
+    /* === SIDEBAR === */
     section[data-testid="stSidebar"] {
         background-color: #f4f3e2;
-    }
-
-    /* Judul dan teks penting */
-    h1, h2, h3, .st-emotion-cache-1v0mbdj {
         color: #6b7317;
     }
 
-    /* Slider dan input accent */
+    /* Label dan teks sidebar */
+    .st-emotion-cache-1v0mbdj, .st-emotion-cache-10trblm, label {
+        color: #6b7317 !important;
+        font-weight: 600;
+    }
+
+    /* Slider (transparansi) */
     .stSlider > div {
         color: #b1a500;
     }
 
-    /* Kotak-kotak dan komponen border */
-    .stSelectbox, .stSlider, .stCheckbox {
-        border-color: #888414;
+    /* === TAMPILAN UMUM === */
+    html, body {
+        background-color: #111; /* warna gelap global */
     }
 
-    /* Judul peta */
-    .leaflet-control .leaflet-control-attribution {
-        background-color: #c5b700 !important;
+    h1, h2, h3 {
+        color: #6b7317;
+    }
+
+    /* Teks utama & paragraf */
+    .stMarkdown, .css-1cpxqw2 {
+        color: #ddddcc;
+    }
+
+    /* Tombol / aksen */
+    .stButton>button {
+        background-color: #888414;
         color: white;
+        border-radius: 5px;
+        border: none;
+    }
+    .stButton>button:hover {
+        background-color: #b1a500;
+    }
+
+    /* Peta judul */
+    .leaflet-control .leaflet-control-attribution {
+        background-color: #b1a500 !important;
+        color: white !important;
         font-weight: bold;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background-color: #888414;
+        border-radius: 10px;
     }
 </style>
 """, unsafe_allow_html=True)
+
 
 st.title("🌽 Dashboard Pemetaan Fase Tumbuh Jagung")
 st.markdown("""
