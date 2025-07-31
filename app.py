@@ -4,6 +4,8 @@ from streamlit_folium import st_folium
 from folium.raster_layers import ImageOverlay
 import os
 from folium import Element
+import json
+import geopandas as gpd
 
 # === Tambahkan gambar header (cover)
 st.image("data/cover_jagung_crop.jpg", use_container_width=True)
@@ -50,6 +52,32 @@ else:
 
     m = folium.Map(location=[center_lat, center_lon], zoom_start=12)
 
+    # === Tambah batas kecamatan (GeoJSON)
+    geojson_path = "data/kecamatanSHP.geojson"
+    if os.path.exists(geojson_path):
+        with open(geojson_path, "r", encoding="utf-8") as f:
+            geojson_data = json.load(f)
+    
+        folium.GeoJson(
+            geojson_data,
+            name="Batas Kecamatan",
+            style_function=lambda x: {
+                "fillOpacity": 0,
+                "color": "black",
+                "weight": 1.5
+            },
+            tooltip=folium.GeoJsonTooltip(
+                fields=["NAMOBJ"],  # sesuaikan dengan nama kolom kecamatan di file .shp/.geojson
+                aliases=["Kecamatan:"],
+                localize=True,
+                sticky=True,
+                direction="top",
+                opacity=0.9,
+                permanent=False
+            )
+        ).add_to(m)
+
+    
     # Basemap
     folium.TileLayer(
         tiles="https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
