@@ -35,8 +35,8 @@ Nah, sebelum kita lihat petanya, kenalan dulu yuk sama fase-fase pertumbuhan jag
 </div>
 """, unsafe_allow_html=True)
 
+st.markdown("<br><br>", unsafe_allow_html=True)
 
-#st.markdown("""Pilih bulan klasifikasi untuk menampilkan perbedaan fase pertumbuhan dari waktu ke waktu.""")
 # === Sidebar
 with st.sidebar:
     st.header("🔧 Pengaturan Visualisasi")
