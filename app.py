@@ -83,11 +83,17 @@ with col2:
     # Judul
     st.markdown(f"<h2 style='text-align:center'>{kelas}</h2>", unsafe_allow_html=True)
 
-    # Gambar di bawah nama kelas
+    # Gambar dengan ukuran kecil dan rata tengah
     for path in data["gambar"]:
-        st.image(path, use_container_width=True, caption="", clamp=True)
+        st.markdown(
+            f"<div style='text-align:center; margin-top:10px; margin-bottom:10px;'>"
+            f"<img src='data:image/png;base64,{st.image(path, output_format='PNG', width=300)._repr_png_().decode('utf-8')}' "
+            f"style='width:300px; border-radius:10px;'>"
+            f"</div>",
+            unsafe_allow_html=True
+        )
 
-    # Deskripsi & nomor kelas
+    # Deskripsi
     st.markdown(
         f"<p style='text-align:center; font-size:16px; margin-top:10px;'>{data['deskripsi']}</p>", 
         unsafe_allow_html=True
