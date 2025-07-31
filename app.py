@@ -100,7 +100,7 @@ else:
         color: #333;
         box-shadow: 0 2px 6px rgba(0,0,0,0.3);
     ">
-    📍 Pemetaan Fase Tumbuh Jagung — {nama_bulan_indo} {tahun}
+    📍 Pemetaan Fase Tumbuh Jagung {nama_bulan_indo} {tahun}
     </div>
     """
 
