@@ -30,7 +30,7 @@ with st.sidebar:
 
 st.markdown("### 🗂️ Penjelasan Kelas Fase Tumbuh Jagung")
 
-# List kelas dan data deskripsi + gambar
+# Data kelas dan isi
 kelas_list = [
     "Vegetatif Awal (VA)",
     "Vegetatif Akhir (VR)",
@@ -62,30 +62,39 @@ kelas_opsi = {
     }
 }
 
-# Inisialisasi index di session_state
+# Inisialisasi index
 if "kelas_index" not in st.session_state:
     st.session_state.kelas_index = 0
 
-col1, col2, col3 = st.columns([1, 6, 1])
-with col1:
-    if st.button("⬅️"):
+# Layout 3 kolom: Panah kiri - Konten tengah - Panah kanan
+col_kiri, col_tengah, col_kanan = st.columns([1, 5, 1])
+
+# Panah navigasi
+with col_kiri:
+    if st.button("⬅️", use_container_width=True):
         st.session_state.kelas_index = (st.session_state.kelas_index - 1) % len(kelas_list)
-with col3:
-    if st.button("➡️"):
+
+with col_kanan:
+    if st.button("➡️", use_container_width=True):
         st.session_state.kelas_index = (st.session_state.kelas_index + 1) % len(kelas_list)
 
+# Konten di tengah (terpusat)
 kelas_dipilih = kelas_list[st.session_state.kelas_index]
+with col_tengah:
+    st.markdown(f"<h4 style='text-align:center'>{kelas_dipilih}</h4>", unsafe_allow_html=True)
 
-# Tampilkan nama kelas dan deskripsi
-st.markdown(f"**Kelas:** {kelas_dipilih}")
-st.markdown(f"**Deskripsi:** {kelas_opsi[kelas_dipilih]['deskripsi']}")
+    gambar_list = kelas_opsi[kelas_dipilih]["gambar"]
+    gambar_cols = st.columns(len(gambar_list))
+    for i, path in enumerate(gambar_list):
+        with gambar_cols[i]:
+            st.image(path, width=150)
 
-# Tampilkan gambar kecil dan rapi
-gambar_list = kelas_opsi[kelas_dipilih]["gambar"]
-cols = st.columns(len(gambar_list))
-for i, path_gambar in enumerate(gambar_list):
-    with cols[i]:
-        st.image(path_gambar, width=150)
+    st.markdown(
+        f"<div style='text-align:center; margin-top:10px; font-size:15px; color:#444;'>"
+        f"{kelas_opsi[kelas_dipilih]['deskripsi']}</div>",
+        unsafe_allow_html=True
+    )
+
 
 
 # === Pemetaan nama bulan ke bahasa Indonesia
