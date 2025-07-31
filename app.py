@@ -71,33 +71,27 @@ col1, col2, col3 = st.columns([1, 6, 1])
 
 # === Tombol Kiri ===
 with col1:
-    st.markdown("<div style='padding-top:150px'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='padding-top:180px'></div>", unsafe_allow_html=True)
     if st.button("⬅️", use_container_width=True):
         st.session_state.kelas_index = (st.session_state.kelas_index - 1) % len(kelas_list)
 
 # === Konten Tengah ===
 with col2:
     kelas = kelas_list[st.session_state.kelas_index]
-    deskripsi = kelas_opsi[kelas]["deskripsi"]
-    gambar_list = kelas_opsi[kelas]["gambar"]
+    data = kelas_opsi[kelas]
 
+    # Judul
     st.markdown(f"<h2 style='text-align:center'>{kelas}</h2>", unsafe_allow_html=True)
 
-    for path in gambar_list:
-        st.markdown(
-            f"""
-            <div style='text-align:center'>
-                <img src='{path}' style='width:250px; border-radius:10px; margin-bottom:10px;' />
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+    # Gambar di bawah nama kelas
+    for path in data["gambar"]:
+        st.image(path, use_container_width=True, caption="", clamp=True)
 
+    # Deskripsi & nomor kelas
     st.markdown(
-        f"<p style='text-align:center; font-size:16px; margin-top:10px;'>{deskripsi}</p>", 
+        f"<p style='text-align:center; font-size:16px; margin-top:10px;'>{data['deskripsi']}</p>", 
         unsafe_allow_html=True
     )
-
     st.markdown(
         f"<p style='text-align:center; color:gray;'>Kelas {st.session_state.kelas_index + 1} dari {len(kelas_list)}</p>", 
         unsafe_allow_html=True
@@ -105,7 +99,7 @@ with col2:
 
 # === Tombol Kanan ===
 with col3:
-    st.markdown("<div style='padding-top:150px'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='padding-top:180px'></div>", unsafe_allow_html=True)
     if st.button("➡️", use_container_width=True):
         st.session_state.kelas_index = (st.session_state.kelas_index + 1) % len(kelas_list)
 
