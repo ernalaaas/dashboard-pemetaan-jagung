@@ -277,3 +277,20 @@ else:
     with col2:
         st_folium(m, width=900, height=600)
 
+st.markdown("""
+<div style='text-align: justify;'>
+Setelah melihat peta penyebaran fase tumbuh jagung, kita bisa melihat bagaimana kondisi pertanaman jagung berubah setiap bulannya. 
+Mulai dari wilayah yang baru ditanami, sampai yang sudah mendekati masa panen, semua tergambarkan secara visual dan mudah dipahami. 
+Hal ini tentu sangat membantu petani, penyuluh, hingga pengambil kebijakan dalam menentukan langkah yang tepat di lapangan.
+</div>
+
+<br/>
+
+<div style='text-align: justify;'>
+Dengan memanfaatkan teknologi penginderaan jauh dan model <i>machine learning</i>, pemantauan pertumbuhan jagung kini dapat dilakukan secara lebih cepat, efisien, dan luas cakupannya. 
+Semoga dashboard ini bisa menjadi salah satu langkah awal dalam mendorong pertanian berbasis data di masa depan. 
+Terima kasih telah menjelajahi dashboard ini, dan semoga bermanfaat!
+</div>
+""", unsafe_allow_html=True)
+
+
