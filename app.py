@@ -10,6 +10,37 @@ st.image("data/cover_jagung_crop.jpg", use_container_width=True)
 
 # === Konfigurasi halaman
 st.set_page_config(layout="wide")
+st.markdown("""
+<style>
+    /* Warna latar sidebar */
+    section[data-testid="stSidebar"] {
+        background-color: #f4f3e2;
+    }
+
+    /* Judul dan teks penting */
+    h1, h2, h3, .st-emotion-cache-1v0mbdj {
+        color: #6b7317;
+    }
+
+    /* Slider dan input accent */
+    .stSlider > div {
+        color: #b1a500;
+    }
+
+    /* Kotak-kotak dan komponen border */
+    .stSelectbox, .stSlider, .stCheckbox {
+        border-color: #888414;
+    }
+
+    /* Judul peta */
+    .leaflet-control .leaflet-control-attribution {
+        background-color: #c5b700 !important;
+        color: white;
+        font-weight: bold;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 st.title("🌽 Dashboard Pemetaan Fase Tumbuh Jagung")
 st.markdown("""
 Dashboard ini menampilkan peta klasifikasi fase tumbuh jagung berbasis citra satelit di Kabupaten Karo.
