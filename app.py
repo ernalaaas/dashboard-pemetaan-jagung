@@ -145,6 +145,15 @@ with col3:
         st.session_state.kelas_index = (st.session_state.kelas_index + 1) % len(kelas_list)
 
 
+st.markdown("""
+<div style='text-align: justify;'>
+Sekarang kamu sudah kenal dengan setiap fase tumbuh jagung yang ada.
+Lalu, bagaimana bentuk penyebaran fase-fase ini di wilayah Kabupaten Karo?
+Yuk, kita lihat langsung hasil pemetaan berdasarkan citra satelit untuk mengetahui lokasi dan sebaran fase pertumbuhan jagung di setiap bulannya!
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("<br><br>", unsafe_allow_html=True)
 
 
 
