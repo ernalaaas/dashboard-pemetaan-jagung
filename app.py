@@ -28,8 +28,6 @@ with st.sidebar:
     opacity = st.slider("🌓 Transparansi Layer", 0.0, 1.0, 0.6)
 
 
-import streamlit as st
-
 # === Data Kelas ===
 kelas_list = [
     "Vegetatif Awal (VA)",
@@ -66,10 +64,10 @@ kelas_opsi = {
 if "kelas_index" not in st.session_state:
     st.session_state.kelas_index = 0
 
-# === Layout Utama ===
+# === Layout Utama: 3 kolom untuk panah kiri, konten tengah, panah kanan ===
 col1, col2, col3 = st.columns([1, 6, 1])
 
-# === Tombol Kiri ===
+# === Panah Kiri ===
 with col1:
     st.markdown("<div style='padding-top:180px'></div>", unsafe_allow_html=True)
     if st.button("⬅️", use_container_width=True):
@@ -80,34 +78,27 @@ with col2:
     kelas = kelas_list[st.session_state.kelas_index]
     data = kelas_opsi[kelas]
 
-    # Judul
     st.markdown(f"<h2 style='text-align:center'>{kelas}</h2>", unsafe_allow_html=True)
 
-    # Gambar dengan ukuran kecil dan rata tengah
     for path in data["gambar"]:
-        st.markdown(
-            f"<div style='text-align:center; margin-top:10px; margin-bottom:10px;'>"
-            f"<img src='data:image/png;base64,{st.image(path, output_format='PNG', width=300)._repr_png_().decode('utf-8')}' "
-            f"style='width:300px; border-radius:10px;'>"
-            f"</div>",
-            unsafe_allow_html=True
-        )
+        st.image(path, width=300)
 
-    # Deskripsi
     st.markdown(
-        f"<p style='text-align:center; font-size:16px; margin-top:10px;'>{data['deskripsi']}</p>", 
-        unsafe_allow_html=True
-    )
-    st.markdown(
-        f"<p style='text-align:center; color:gray;'>Kelas {st.session_state.kelas_index + 1} dari {len(kelas_list)}</p>", 
+        f"<p style='text-align:center; font-size:16px; margin-top:10px;'>{data['deskripsi']}</p>",
         unsafe_allow_html=True
     )
 
-# === Tombol Kanan ===
+    st.markdown(
+        f"<p style='text-align:center; color:gray;'>Kelas {st.session_state.kelas_index + 1} dari {len(kelas_list)}</p>",
+        unsafe_allow_html=True
+    )
+
+# === Panah Kanan ===
 with col3:
     st.markdown("<div style='padding-top:180px'></div>", unsafe_allow_html=True)
     if st.button("➡️", use_container_width=True):
         st.session_state.kelas_index = (st.session_state.kelas_index + 1) % len(kelas_list)
+
 
 
 
