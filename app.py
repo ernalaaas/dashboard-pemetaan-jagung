@@ -153,7 +153,6 @@ Yuk, kita lihat langsung hasil pemetaan berdasarkan citra satelit untuk mengetah
 </div>
 """, unsafe_allow_html=True)
 
-#st.markdown("<br>", unsafe_allow_html=True)
 
 
 
@@ -273,5 +272,5 @@ else:
     # === Tampilkan peta di tengah laman
     col1, col2, col3 = st.columns([1, 6, 1])
     with col2:
-        st_folium(m, width=1000, height=600)
+        st_folium(m, width=800, height=600)
 
