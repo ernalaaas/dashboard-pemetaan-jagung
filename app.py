@@ -35,13 +35,20 @@ if not os.path.exists(default_path):
 
 # === Fungsi konversi array raster ke RGB image
 def array_to_rgb(array):
-    cmap = cm.get_cmap("tab10", int(np.max(array) + 1))
-    rgba = cmap(array / np.max(array))
-    rgb = (rgba[:, :, :3] * 255).astype(np.uint8)
-    return rgb
+    max_val = np.max(array)
+    if max_val == 0:
+        array = np.ones_like(array)
+        max_val = 1
+    cmap = cm.get_cmap("tab10", int(max_val + 1))
+    rgba = cmap(array / max_val)
+    return (rgba[:, :, :3] * 255).astype(np.uint8)
+
 
 # === Baca file raster dan tampilkan di peta
 try:
+    st.write("✅ Maksimum nilai raster:", np.max(data))
+    st.write("✅ Ukuran raster:", data.shape)
+
     if uploaded_file is not None:
         src = rasterio.open(uploaded_file)
         st.success("✅ File raster berhasil diunggah.")
