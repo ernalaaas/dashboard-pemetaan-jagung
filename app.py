@@ -30,6 +30,20 @@ with st.sidebar:
 
 st.markdown("### 🗂️ Penjelasan Kelas Fase Tumbuh Jagung")
 
+# Urutan kelas untuk slideshow
+kelas_list = [
+    "Vegetatif Awal (VA)",
+    "Vegetatif Akhir (VR)",
+    "Reproduktif Awal (RA)",
+    "Reproduktif Akhir (RR)",
+    "Bukan Lahan Jagung"
+]
+
+# Pilih indeks kelas via slider
+idx = st.select_slider("➡️ Geser untuk melihat kelas:", options=list(range(len(kelas_list))), format_func=lambda i: kelas_list[i])
+kelas_dipilih = kelas_list[idx]
+
+# Data kelas
 kelas_opsi = {
     "Vegetatif Awal (VA)": {
         "deskripsi": "Jagung baru mulai tumbuh, daun masih sedikit, berwarna hijau segar.",
@@ -53,18 +67,17 @@ kelas_opsi = {
     }
 }
 
-kelas_dipilih = st.radio("📸 Pilih Kelas untuk Melihat Penjelasan:", list(kelas_opsi.keys()), horizontal=True)
-
-# Tampilkan gambar (bisa 1 atau lebih)
-gambar_list = kelas_opsi[kelas_dipilih]["gambar"]
-col_count = len(gambar_list)
-
-cols = st.columns(col_count)
-for i, path_gambar in enumerate(gambar_list):
-    with cols[i]:
-        st.image(path_gambar, use_column_width=True)
-
+# Tampilkan deskripsi dan gambar
+st.markdown(f"**Kelas:** {kelas_dipilih}")
 st.markdown(f"**Deskripsi:** {kelas_opsi[kelas_dipilih]['deskripsi']}")
+
+# Gambar ditampilkan kecil & rapi
+gambar_list = kelas_opsi[kelas_dipilih]["gambar"]
+cols = st.columns(len(gambar_list))
+for i, img_path in enumerate(gambar_list):
+    with cols[i]:
+        st.image(img_path, width=150)
+
 
 
 
