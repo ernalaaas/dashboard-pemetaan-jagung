@@ -16,10 +16,13 @@ st.set_page_config(layout="wide")
 
 st.title("🌽 Dashboard Pemetaan Fase Tumbuh Jagung")
 st.markdown("""
-Dashboard ini menampilkan peta klasifikasi fase tumbuh jagung berbasis citra satelit di Kabupaten Karo.
-Pilih bulan klasifikasi untuk menampilkan perbedaan fase pertumbuhan dari waktu ke waktu.
+Dashboard ini menampilkan peta klasifikasi fase tumbuh jagung berbasis citra satelit di Kabupaten Karo. 
+Setiap fase pertumbuhan jagung, mulai dari fase vegetatif awal hingga fase reproduktif akhir, dipetakan secara visual berdasarkan analisis citra Sentinel-1 dan Sentinel-2. 
+Informasi ini dapat membantu pemantauan pertanaman jagung secara spasial dan temporal. 
+Dengan pendekatan ini, pengguna dapat memahami perkembangan tanaman di berbagai wilayah dengan lebih akurat dan efisien.
 """)
 
+st.markdown("""Pilih bulan klasifikasi untuk menampilkan perbedaan fase pertumbuhan dari waktu ke waktu.""")
 # === Sidebar
 with st.sidebar:
     st.header("🔧 Pengaturan Visualisasi")
