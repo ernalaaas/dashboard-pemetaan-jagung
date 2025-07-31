@@ -14,14 +14,14 @@ with st.sidebar:
     st.header("Pengaturan")
     opacity = st.slider("Transparansi overlay", 0.0, 1.0, 0.6)
 
-# === Path gambar dan koordinat bounds (WGS84 / lat-lon)
+# === Path gambar PNG dan bounds (hasil konversi UTM → latlon)
 image_path = "data/2024-07_1Stage_filtered.png"
+image_bounds = [
+    [2.867686, 97.870742],  # south, west
+    [3.331565, 98.629036]   # north, east
+]
 
-# GANTI KOORDINAT INI SESUAI HASIL KONVERSI DARI RASTER
-# Contoh di bawah diasumsikan sudah dikonversi dari UTM ke lat-lon
-image_bounds = [[3.095, 98.375], [3.155, 98.515]]  # [[south, west], [north, east]]
-
-# === Cek file
+# === Cek file dan tampilkan peta
 if not os.path.exists(image_path):
     st.error(f"❌ Gambar PNG tidak ditemukan di: {image_path}")
 else:
@@ -30,7 +30,7 @@ else:
     center_lon = (image_bounds[0][1] + image_bounds[1][1]) / 2
 
     # Buat peta
-    m = folium.Map(location=[center_lat, center_lon], zoom_start=13)
+    m = folium.Map(location=[center_lat, center_lon], zoom_start=12)
 
     # Basemap: Google Satellite
     folium.TileLayer(
