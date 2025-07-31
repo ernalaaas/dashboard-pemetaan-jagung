@@ -27,10 +27,11 @@ st.set_page_config(layout="wide")
 st.title("🌽 Dashboard Pemetaan Fase Tumbuh Jagung")
 st.markdown("""
 <div style='text-align: justify;'>
-Dashboard ini menampilkan peta klasifikasi fase tumbuh jagung berbasis citra satelit di Kabupaten Karo. 
-Setiap fase pertumbuhan jagung, mulai dari fase vegetatif awal hingga fase reproduktif akhir, dipetakan secara visual berdasarkan analisis citra Sentinel-1 dan Sentinel-2. 
-Informasi ini dapat membantu pemantauan pertanaman jagung secara spasial dan temporal. 
-Dengan pendekatan ini, pengguna dapat memahami perkembangan tanaman di berbagai wilayah dengan lebih akurat dan efisien.
+Dashboard ini dibuat untuk menunjukkan bagaimana jagung tumbuh di Kabupaten Karo, dilihat dari atas lewat citra satelit Sentinel-1 dan Sentinel-2.
+Mulai dari saat jagung baru tumbuh, hingga mendekati masa panen — semua fase pertumbuhannya dipetakan dengan jelas.
+Dengan peta ini, kamu bisa melihat perkembangan jagung di berbagai wilayah dan waktu, tanpa harus turun langsung ke lapangan.
+Cocok banget buat kamu yang ingin tahu kondisi pertanian secara cepat dan praktis!
+Nah, sebelum kita lihat petanya, kenalan dulu yuk sama fase-fase pertumbuhan jagung yang dipetakan di sini!
 </div>
 """, unsafe_allow_html=True)
 
