@@ -83,7 +83,7 @@ with col2:
 
     st.markdown(f"<h2 style='text-align:center'>{kelas}</h2>", unsafe_allow_html=True)
 
-    if kelas == "Bukan Lahan Jagung":
+    if kelas == "Bukan Jagung":
         col_a, col_b = st.columns(2)
         for i, col in enumerate([col_a, col_b]):
             with col:
