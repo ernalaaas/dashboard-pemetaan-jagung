@@ -35,7 +35,7 @@ Nah, sebelum kita lihat petanya, kenalan dulu yuk sama fase-fase pertumbuhan jag
 </div>
 """, unsafe_allow_html=True)
 
-st.markdown("<br><br>", unsafe_allow_html=True)
+st.markdown("<br>", unsafe_allow_html=True)
 
 # === Sidebar
 with st.sidebar:
