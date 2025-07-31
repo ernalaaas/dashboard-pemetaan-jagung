@@ -2,5 +2,6 @@ streamlit
 folium
 streamlit-folium
 rasterio
-numpy
 matplotlib
+numpy
+gdown
