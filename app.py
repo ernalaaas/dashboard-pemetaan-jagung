@@ -64,3 +64,38 @@ if os.path.exists(output_path):
     # Tambah Google Satellite Layer
     folium.TileLayer(
         tiles="https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
+        attr="Google",
+        name="Google Satellite",
+        overlay=False,
+        control=True
+    ).add_to(m)
+
+    # Overlay klasifikasi
+    image_bounds = [[bounds.bottom, bounds.left], [bounds.top, bounds.right]]
+    raster_layers.ImageOverlay(
+        image=temp_img,
+        bounds=image_bounds,
+        opacity=opacity,
+        name="Klasifikasi Fase Tumbuh"
+    ).add_to(m)
+
+    # Legenda
+    legend_html = """
+    <div style="position: fixed; 
+                bottom: 20px; left: 20px; width: 220px; height: 150px; 
+                background-color: white; z-index:9999; font-size:14px;
+                border:2px solid gray; padding:10px;">
+    <b>Legenda Kelas:</b><br>
+    <i style="background:#66c2a5;width:12px;height:12px;display:inline-block;"></i> Vegetatif Awal<br>
+    <i style="background:#fc8d62;width:12px;height:12px;display:inline-block;"></i> Vegetatif Akhir<br>
+    <i style="background:#8da0cb;width:12px;height:12px;display:inline-block;"></i> Reproduktif Awal<br>
+    <i style="background:#e78ac3;width:12px;height:12px;display:inline-block;"></i> Reproduktif Akhir<br>
+    <i style="background:#a6d854;width:12px;height:12px;display:inline-block;"></i> Bukan Lahan Jagung<br>
+    </div>
+    """
+    m.get_root().html.add_child(folium.Element(legend_html))
+
+    folium.LayerControl().add_to(m)
+    st_data = st_folium(m, width=1000, height=600)
+else:
+    st.error("❌ File raster belum tersedia.")
