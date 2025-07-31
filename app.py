@@ -37,7 +37,7 @@ kelas_list = [
     "Vegetatif Akhir (VR)",
     "Reproduktif Awal (RA)",
     "Reproduktif Akhir (RR)",
-    "Bukan Lahan Jagung"
+    "Bukan Jagung"
 ]
 
 kelas_opsi = {
@@ -57,7 +57,7 @@ kelas_opsi = {
         "deskripsi": "Fase Reproduktif Akhir dimulai ketika bagian dalam biji masih bertekstur seperti pasta (belum mengeras), kemudian berlanjut hingga biji mengeras dan tongkol mengering. Rambut jagung semakin kering dan menghitam, hingga seluruh bagian tongkol hampir kering dan siap untuk dipanen",
         "gambar": ["data/RR.jpg"]
     },
-    "Bukan Lahan Jagung": {
+    "Bukan Jagung": {
         "deskripsi": "Wilayah yang bukan termasuk area pertanaman jagung, seperti hutan, permukiman, atau sawah",
         "gambar": ["data/BJ1.jpg", "data/BJ2.jpg"]
     }
@@ -213,7 +213,7 @@ else:
     <span style='display:inline-block; width:15px; height:15px; background-color:#cdbb5d; margin-right:8px;'></span>Vegetatif Akhir (VR)<br>
     <span style='display:inline-block; width:15px; height:15px; background-color:#ffef00; margin-right:8px;'></span>Reproduktif Awal (RA)<br>
     <span style='display:inline-block; width:15px; height:15px; background-color:#ff4400; margin-right:8px;'></span>Reproduktif Akhir (RR)<br>
-    <span style='display:inline-block; width:15px; height:15px; background-color:#0010ff; margin-right:8px;'></span>Bukan Lahan Jagung
+    <span style='display:inline-block; width:15px; height:15px; background-color:#0010ff; margin-right:8px;'></span>Bukan Jagung
     </div>
     </div>
     """
