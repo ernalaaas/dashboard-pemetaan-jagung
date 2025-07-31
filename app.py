@@ -241,4 +241,11 @@ else:
     m.get_root().html.add_child(Element(judul_peta_html))
 
     folium.LayerControl().add_to(m)
-    st_folium(m, width=1000, height=600)
+    # === Tambahkan jarak vertikal
+    st.markdown("<br><br>", unsafe_allow_html=True)
+    
+    # === Tampilkan peta di tengah laman
+    col1, col2, col3 = st.columns([1, 6, 1])
+    with col2:
+        st_folium(m, width=1000, height=600)
+
