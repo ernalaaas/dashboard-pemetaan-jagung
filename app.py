@@ -12,62 +12,71 @@ st.image("data/cover_jagung_crop.jpg", use_container_width=True)
 st.set_page_config(layout="wide")
 st.markdown("""
 <style>
-    /* === SIDEBAR === */
-    section[data-testid="stSidebar"] {
-        background-color: #f4f3e2 !important;
-        color: #6b7317 !important;
+    /* === WARNA DASAR === */
+    html, body, .main {
+        background-color: #fdfbec !important;  /* Konten utama (lebih terang) */
     }
 
-    /* Label & teks sidebar */
-    .st-emotion-cache-1v0mbdj, .st-emotion-cache-10trblm, label, .stSlider > div {
-        color: #6b7317 !important;
+    /* === SIDEBAR === */
+    section[data-testid="stSidebar"] {
+        background-color: #e0ddc1 !important;  /* Sidebar lebih gelap */
+        color: #333 !important;
+    }
+
+    header[data-testid="stHeader"] {
+        background-color: #e0ddc1 !important;  /* Header atas sidebar */
+        border-bottom: 1px solid #c7c4a4;
+    }
+
+    /* === LABEL, SLIDER, TEKS DI SIDEBAR === */
+    .st-emotion-cache-1v0mbdj, 
+    .st-emotion-cache-10trblm, 
+    label, .stSlider > div, .stSelectbox label {
+        color: #3b3a2d !important;
         font-weight: 600;
     }
 
-    /* === KONTEN UTAMA === */
-    .block-container {
-        background-color: #fefeee !important;
-        padding-top: 1rem;
+    /* === SLIDER (warna track & thumb) === */
+    .stSlider > div[data-baseweb="slider"] > div {
+        background: #b6b31e !important;
     }
 
-    /* Teks judul dan paragraf */
-    h1, h2, h3 {
-        color: #6b7317 !important;
-    }
-
-    .stMarkdown, .css-1cpxqw2, .stText {
-        color: #333333 !important;
-    }
-
-    /* Tombol */
+    /* === TOMBOL (jika ada) === */
     .stButton>button {
-        background-color: #888414 !important;
+        background-color: #8a8426 !important;
         color: white !important;
         border-radius: 5px;
         border: none;
     }
+
     .stButton>button:hover {
-        background-color: #b1a500 !important;
+        background-color: #b3ad3c !important;
     }
 
-    /* Judul peta (leaflet attribution) */
-    .leaflet-control .leaflet-control-attribution {
-        background-color: #b1a500 !important;
-        color: white !important;
-        font-weight: bold;
+    /* === KONTEN UTAMA === */
+    .block-container {
+        background-color: #fdfbec !important;
+        padding-top: 1rem;
     }
 
-    /* Scrollbar */
+    h1, h2, h3 {
+        color: #4c4b2a !important;
+    }
+
+    .stMarkdown, .css-1cpxqw2, .stText {
+        color: #2e2d1e !important;
+    }
+
+    /* === SCROLLBAR === */
     ::-webkit-scrollbar {
         width: 8px;
     }
     ::-webkit-scrollbar-thumb {
-        background-color: #888414;
+        background-color: #a39f41;
         border-radius: 10px;
     }
 </style>
 """, unsafe_allow_html=True)
-
 
 
 st.title("🌽 Dashboard Pemetaan Fase Tumbuh Jagung")
