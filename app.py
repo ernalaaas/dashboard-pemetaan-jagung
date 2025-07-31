@@ -28,6 +28,9 @@ with st.sidebar:
     opacity = st.slider("🌓 Transparansi Layer", 0.0, 1.0, 0.6)
 
 
+import streamlit as st
+import base64
+
 # === Data Kelas ===
 kelas_list = [
     "Vegetatif Awal (VA)",
@@ -64,7 +67,7 @@ kelas_opsi = {
 if "kelas_index" not in st.session_state:
     st.session_state.kelas_index = 0
 
-# === Layout Utama: 3 kolom untuk panah kiri, konten tengah, panah kanan ===
+# === Layout Utama ===
 col1, col2, col3 = st.columns([1, 6, 1])
 
 # === Panah Kiri ===
@@ -81,7 +84,16 @@ with col2:
     st.markdown(f"<h2 style='text-align:center'>{kelas}</h2>", unsafe_allow_html=True)
 
     for path in data["gambar"]:
-        st.image(path, width=300)
+        # Buka file gambar dan konversi ke base64
+        with open(path, "rb") as f:
+            img_data = f.read()
+            img_base64 = base64.b64encode(img_data).decode("utf-8")
+            img_html = f"""
+                <div style='text-align:center;'>
+                    <img src='data:image/png;base64,{img_base64}' style='width:300px; border-radius:8px; margin:10px auto;'/>
+                </div>
+            """
+            st.markdown(img_html, unsafe_allow_html=True)
 
     st.markdown(
         f"<p style='text-align:center; font-size:16px; margin-top:10px;'>{data['deskripsi']}</p>",
