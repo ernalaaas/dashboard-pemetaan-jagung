@@ -9,7 +9,7 @@ from folium import Element
 st.markdown("""
     <style>
     .cover-container {
-        height: 150px;             /* atur tinggi gambar di sini */
+        height: 250px;             /* atur tinggi gambar di sini */
         overflow: hidden;
         border-radius: 8px;
         margin-bottom: 10px;
