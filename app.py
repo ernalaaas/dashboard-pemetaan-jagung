@@ -147,9 +147,12 @@ with col3:
 
 st.markdown("""
 <div style='text-align: justify;'>
-Sekarang kamu sudah kenal dengan setiap fase tumbuh jagung yang ada.
-Lalu, bagaimana bentuk penyebaran fase-fase ini di wilayah Kabupaten Karo?
-Yuk, kita lihat langsung hasil pemetaan berdasarkan citra satelit untuk mengetahui lokasi dan sebaran fase pertumbuhan jagung di setiap bulannya!
+Sekarang kamu sudah mengenal setiap fase pertumbuhan jagung yang diamati. 
+Lalu, seperti apa sebaran fase-fase ini di wilayah Kabupaten Karo? 
+Yuk, kita lihat hasil pemetaannya! Di bawah ini, kamu bisa melihat visualisasi dari 
+klasifikasi fase tumbuh jagung berdasarkan citra satelit yang diolah menggunakan model *machine learning*. 
+Peta ini menampilkan lokasi serta perkembangan fase tanaman jagung pada setiap bulan, 
+sehingga kamu bisa memantau perubahan secara lebih jelas dan mudah dipahami.
 </div>
 """, unsafe_allow_html=True)
 
