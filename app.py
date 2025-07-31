@@ -35,7 +35,7 @@ Dengan pendekatan ini, pengguna dapat memahami perkembangan tanaman di berbagai 
 """, unsafe_allow_html=True)
 
 
-st.markdown("""Pilih bulan klasifikasi untuk menampilkan perbedaan fase pertumbuhan dari waktu ke waktu.""")
+#st.markdown("""Pilih bulan klasifikasi untuk menampilkan perbedaan fase pertumbuhan dari waktu ke waktu.""")
 # === Sidebar
 with st.sidebar:
     st.header("🔧 Pengaturan Visualisasi")
