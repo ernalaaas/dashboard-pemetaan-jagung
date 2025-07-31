@@ -8,34 +8,50 @@ import matplotlib.pyplot as plt
 import os
 import gdown
 
+# === Konfigurasi halaman ===
 st.set_page_config(layout="wide")
 st.title("Dashboard Pemetaan Fase Tumbuh Jagung 🌽")
-st.markdown("Basemap: Google Satellite | Overlay: Hasil klasifikasi fase tumbuh jagung")
+st.markdown("**Basemap:** Google Satellite | **Overlay:** Hasil klasifikasi fase tumbuh jagung")
 
 # === Sidebar ===
 with st.sidebar:
     st.header("Pengaturan")
     opacity = st.slider("Transparansi layer klasifikasi", 0.0, 1.0, 0.6)
+    uploaded_file = st.file_uploader("Upload file .tif hasil klasifikasi", type=["tif"])
 
-# === Download raster dari Google Drive jika belum ada ===
-file_id = "19gAUxtX8kmCrdQypFF46UqiEWXtLLyEG"  # GANTI sesuai file kamu
-output_path = "data/hasil_klasifikasi.tif"
+# === Unduh raster dari Google Drive jika belum ada ===
+file_id = "19gAUxtX8kmCrdQypFF46UqiEWXtLLyEG"  # Ganti dengan ID kamu
+default_path = "data/hasil_klasifikasi.tif"
 
 if not os.path.exists("data"):
     os.makedirs("data")
 
-if not os.path.exists(output_path):
-    st.info("⏳ Mengunduh file klasifikasi dari Google Drive...")
-    url = f"https://drive.google.com/uc?id={file_id}"
-    gdown.download(url, output_path, quiet=False)
+if uploaded_file:
+    with open(default_path, "wb") as f:
+        f.write(uploaded_file.read())
+    st.success("✅ File berhasil diunggah dan digunakan.")
+elif not os.path.exists(default_path):
+    st.info("⏳ Mengunduh file dari Google Drive...")
+    gdown.download(f"https://drive.google.com/uc?id={file_id}", default_path, quiet=False)
+    st.success("✅ Unduhan selesai.")
+else:
+    st.info("📂 Menggunakan file lokal yang sudah ada.")
 
-# === Proses dan tampilkan peta jika tif ada ===
-if os.path.exists(output_path):
-    with rasterio.open(output_path) as src:
+# === Fungsi bantu: konversi klasifikasi ke RGBA ===
+def klasifikasi_to_rgb(image, colormap):
+    rgb_img = np.zeros((image.shape[0], image.shape[1], 4), dtype=np.uint8)
+    for val, hex_color in colormap.items():
+        mask = image == val
+        rgba = tuple(int(hex_color.lstrip("#")[i:i+2], 16) for i in (0, 2, 4)) + (150,)
+        rgb_img[mask] = rgba
+    return rgb_img
+
+# === Proses file raster dan tampilkan di peta ===
+if os.path.exists(default_path):
+    with rasterio.open(default_path) as src:
         image = src.read(1)
         bounds = src.bounds
 
-    # Warna klasifikasi
     kelas_warna = {
         1: "#66c2a5",  # Vegetatif Awal
         2: "#fc8d62",  # Vegetatif Akhir
@@ -44,24 +60,15 @@ if os.path.exists(output_path):
         5: "#a6d854"   # Bukan lahan jagung
     }
 
-    def klasifikasi_to_rgb(image, colormap):
-        rgb_img = np.zeros((image.shape[0], image.shape[1], 4), dtype=np.uint8)
-        for val, hex_color in colormap.items():
-            mask = image == val
-            rgba = tuple(int(hex_color.lstrip("#")[i:i+2], 16) for i in (0, 2, 4)) + (150,)
-            rgb_img[mask] = rgba
-        return rgb_img
-
     rgb_image = klasifikasi_to_rgb(image, kelas_warna)
-
     temp_img = "temp_overlay.png"
     plt.imsave(temp_img, rgb_image)
 
-    # === Buat peta dengan basemap Google Satellite ===
+    # Lokasi tengah peta
     center = [(bounds.top + bounds.bottom) / 2, (bounds.left + bounds.right) / 2]
     m = folium.Map(location=center, zoom_start=12)
 
-    # Tambah Google Satellite Layer
+    # Basemap Google Satellite
     folium.TileLayer(
         tiles="https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
         attr="Google",
@@ -70,7 +77,7 @@ if os.path.exists(output_path):
         control=True
     ).add_to(m)
 
-    # Overlay klasifikasi
+    # Overlay raster klasifikasi
     image_bounds = [[bounds.bottom, bounds.left], [bounds.top, bounds.right]]
     raster_layers.ImageOverlay(
         image=temp_img,
@@ -82,7 +89,7 @@ if os.path.exists(output_path):
     # Legenda
     legend_html = """
     <div style="position: fixed; 
-                bottom: 20px; left: 20px; width: 220px; height: 150px; 
+                bottom: 20px; left: 20px; width: 240px; height: 160px; 
                 background-color: white; z-index:9999; font-size:14px;
                 border:2px solid gray; padding:10px;">
     <b>Legenda Kelas:</b><br>
@@ -96,6 +103,6 @@ if os.path.exists(output_path):
     m.get_root().html.add_child(folium.Element(legend_html))
 
     folium.LayerControl().add_to(m)
-    st_data = st_folium(m, width=1000, height=600)
+    st_folium(m, width=1000, height=600)
 else:
-    st.error("❌ File raster belum tersedia.")
+    st.error("❌ File raster belum ditemukan.")
