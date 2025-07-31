@@ -10,48 +10,6 @@ st.image("data/cover_jagung_crop.jpg", use_container_width=True)
 
 # === Konfigurasi halaman
 st.set_page_config(layout="wide")
-st.markdown("""
-    <style>
-    /* Selaraskan background konten dan sidebar */
-    .main {
-        background-color: #f9f7e8;  /* warna konten */
-    }
-    section[data-testid="stSidebar"] {
-        background-color: #c9cb9c !important;  /* sidebar lebih gelap */
-    }
-
-    /* Ubah warna slider agar sesuai tema */
-    input[type=range]::-webkit-slider-thumb {
-        background: #6a742f;
-        border: 1px solid #444;
-    }
-    input[type=range]::-webkit-slider-runnable-track {
-        background: #b2b955;
-    }
-
-    /* Untuk browser non-Chrome */
-    input[type=range]::-moz-range-thumb {
-        background: #6a742f;
-        border: 1px solid #444;
-    }
-    input[type=range]::-moz-range-track {
-        background: #b2b955;
-    }
-
-    /* Ubah warna font di topbar */
-    header[data-testid="stHeader"] {
-        color: #3a3a3a;
-        background-color: #f4f4d0 !important;
-    }
-
-    /* Hindari font putih di topbar */
-    header[data-testid="stHeader"] .css-18ni7ap {
-        color: #3a3a3a !important;
-    }
-    </style>
-""", unsafe_allow_html=True)
-
-
 
 
 st.title("🌽 Dashboard Pemetaan Fase Tumbuh Jagung")
