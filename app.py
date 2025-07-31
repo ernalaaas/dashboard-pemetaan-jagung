@@ -3,6 +3,7 @@ import folium
 from streamlit_folium import st_folium
 from folium.raster_layers import ImageOverlay
 import os
+from folium import Element
 
 # === Konfigurasi halaman
 st.set_page_config(layout="wide")
@@ -18,19 +19,17 @@ with st.sidebar:
 
     bulan_opsi = ["2024-07", "2024-08", "2024-09", "2024-10", "2024-11", "2024-12"]
     bulan_pilihan = st.selectbox("📅 Pilih Bulan Klasifikasi:", bulan_opsi)
-
     opacity = st.slider("🌓 Transparansi Layer", 0.0, 1.0, 0.6)
-
     show_legend = st.checkbox("📌 Tampilkan Legenda", True)
 
-# === Path gambar klasifikasi dan koordinat geospasial (hasil konversi UTM → lat-lon WGS84)
+# === Path gambar dan geospasial bounds
 image_path = f"data/{bulan_pilihan}.png"
 image_bounds = [
     [2.867686, 97.870742],  # south, west
     [3.331565, 98.629036]   # north, east
 ]
 
-# === Cek dan tampilkan peta
+# === Tampilkan peta jika file ada
 if not os.path.exists(image_path):
     st.error(f"❌ Gambar klasifikasi untuk bulan {bulan_pilihan} tidak ditemukan di path: {image_path}")
 else:
@@ -41,14 +40,14 @@ else:
     # Inisialisasi peta
     m = folium.Map(location=[center_lat, center_lon], zoom_start=12)
 
-    # Tambah layer Google Satellite
+    # Tambah basemap
     folium.TileLayer(
         tiles="https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
         attr="Google",
         name="Google Satellite"
     ).add_to(m)
 
-    # Overlay gambar klasifikasi
+    # Tambah overlay klasifikasi
     ImageOverlay(
         image=image_path,
         bounds=image_bounds,
@@ -56,18 +55,28 @@ else:
         name=f"Klasifikasi {bulan_pilihan}"
     ).add_to(m)
 
+    # Tambah legenda jika dipilih
+    if show_legend:
+        legend_html = """
+        <div style="
+            position: absolute; 
+            bottom: 20px; left: 20px; width: 240px; z-index:9999;
+            background-color: white; padding: 10px; border:1px solid #ccc;
+            font-size: 14px; color: #000;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            border-radius: 5px;
+        ">
+        <b>Legenda Kelas Fase Tumbuh:</b><br>
+        <div style="margin-top:5px;">
+        <span style='display:inline-block; width:15px; height:15px; background-color:#009c00; margin-right:8px;'></span>Vegetatif Awal (VA)<br>
+        <span style='display:inline-block; width:15px; height:15px; background-color:#cdbb5d; margin-right:8px;'></span>Vegetatif Akhir (VR)<br>
+        <span style='display:inline-block; width:15px; height:15px; background-color:#ffef00; margin-right:8px;'></span>Reproduktif Awal (RA)<br>
+        <span style='display:inline-block; width:15px; height:15px; background-color:#ff4400; margin-right:8px;'></span>Reproduktif Akhir (RR)<br>
+        <span style='display:inline-block; width:15px; height:15px; background-color:#0010ff; margin-right:8px;'></span>Bukan Lahan Jagung
+        </div>
+        </div>
+        """
+        m.get_root().html.add_child(Element(legend_html))
+
     folium.LayerControl().add_to(m)
     st_folium(m, width=1000, height=600)
-
-    # === Legenda warna klasifikasi
-    if show_legend:
-        st.markdown("""
-        <div style='background-color: white; padding: 10px; border:1px solid #ccc; width:300px'>
-        <b>Legenda Kelas Fase Tumbuh:</b><br>
-        <span style='background-color:#009c00; padding:4px 10px; margin-right:5px'></span> Vegetatif Awal (VA)<br>
-        <span style='background-color:#cdbb5d; padding:4px 10px; margin-right:5px'></span> Vegetatif Akhir (VR)<br>
-        <span style='background-color:#ffef00; padding:4px 10px; margin-right:5px'></span> Reproduktif Awal (RA)<br>
-        <span style='background-color:#ff4400; padding:4px 10px; margin-right:5px'></span> Reproduktif Akhir (RR)<br>
-        <span style='background-color:#0010ff; padding:4px 10px; margin-right:5px'></span> Bukan Lahan Jagung
-        </div>
-        """, unsafe_allow_html=True)
