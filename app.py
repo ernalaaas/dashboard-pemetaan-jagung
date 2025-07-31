@@ -28,9 +28,9 @@ with st.sidebar:
     opacity = st.slider("🌓 Transparansi Layer", 0.0, 1.0, 0.6)
 
 
-st.markdown("### 🗂️ Penjelasan Kelas Fase Tumbuh Jagung")
+import streamlit as st
 
-# Data kelas
+# === Data Kelas ===
 kelas_list = [
     "Vegetatif Awal (VA)",
     "Vegetatif Akhir (VR)",
@@ -62,48 +62,49 @@ kelas_opsi = {
     }
 }
 
-# Inisialisasi index
+# === Inisialisasi Index ===
 if "kelas_index" not in st.session_state:
     st.session_state.kelas_index = 0
 
-# Layout 3 kolom
-col_kiri, col_tengah, col_kanan = st.columns([1, 6, 1])
+# === Layout Utama ===
+col1, col2, col3 = st.columns([1, 6, 1])
 
-# === Tombol panah kiri ===
-with col_kiri:
-    st.markdown("<div style='padding-top:120px'></div>", unsafe_allow_html=True)
+# === Panah Kiri ===
+with col1:
+    st.markdown("<div style='padding-top:150px'></div>", unsafe_allow_html=True)
     if st.button("⬅️", use_container_width=True):
         st.session_state.kelas_index = (st.session_state.kelas_index - 1) % len(kelas_list)
 
 # === Konten Tengah ===
-kelas_dipilih = kelas_list[st.session_state.kelas_index]
-with col_tengah:
-    with st.container():
+with col2:
+    kelas = kelas_list[st.session_state.kelas_index]
+    deskripsi = kelas_opsi[kelas]["deskripsi"]
+    gambar_list = kelas_opsi[kelas]["gambar"]
+
+    st.markdown(f"<h2 style='text-align:center'>{kelas}</h2>", unsafe_allow_html=True)
+
+    for path in gambar_list:
         st.markdown(
-            f"<h2 style='text-align:center'>{kelas_dipilih}</h2>",
+            f\"\"\"<div style='text-align:center'>
+                    <img src='{path}' style='width:250px; border-radius:10px; margin-bottom:10px;' />
+                </div>\"\"\", 
             unsafe_allow_html=True
         )
 
-        gambar_list = kelas_opsi[kelas_dipilih]["gambar"]
-        # Tampilkan semua gambar di tengah
-        for path in gambar_list:
-            st.image(path, use_container_width=False, width=300)
+    st.markdown(
+        f\"\"\"<p style='text-align:center; font-size:16px; margin-top:10px;'>{deskripsi}</p>\"\"\", 
+        unsafe_allow_html=True
+    )
+    st.markdown(
+        f\"\"\"<p style='text-align:center; color:gray;'>Kelas {st.session_state.kelas_index + 1} dari {len(kelas_list)}</p>\"\"\", 
+        unsafe_allow_html=True
+    )
 
-        st.markdown(
-            f"<p style='text-align:center; font-size:16px; margin-top:10px;'>{kelas_opsi[kelas_dipilih]['deskripsi']}</p>",
-            unsafe_allow_html=True
-        )
-        st.markdown(
-            f"<p style='text-align:center; color:gray;'>Kelas {st.session_state.kelas_index + 1} dari {len(kelas_list)}</p>",
-            unsafe_allow_html=True
-        )
-
-# === Tombol panah kanan ===
-with col_kanan:
-    st.markdown("<div style='padding-top:120px'></div>", unsafe_allow_html=True)
+# === Panah Kanan ===
+with col3:
+    st.markdown("<div style='padding-top:150px'></div>", unsafe_allow_html=True)
     if st.button("➡️", use_container_width=True):
         st.session_state.kelas_index = (st.session_state.kelas_index + 1) % len(kelas_list)
-
 
 
 
