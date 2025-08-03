@@ -26,38 +26,40 @@ image_path = "data/cover_jagung_crop.jpg"
 with open(image_path, "rb") as img_file:
     encoded_image = base64.b64encode(img_file.read()).decode()
 
+image_path = "data/cover_jagung_crop.jpg"
+with open(image_path, "rb") as img_file:
+    encoded_image = base64.b64encode(img_file.read()).decode()
+
 st.markdown(f"""
     <style>
-    .tooltip {{
+    .hover-image {{
         position: relative;
         display: inline-block;
     }}
 
-    .tooltip .tooltiptext {{
-        visibility: hidden;
-        width: auto;
-        background-color: rgba(0, 0, 0, 0.8);
-        color: #fff;
-        text-align: center;
+    .hover-image .hover-tooltip {{
+        display: none;
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.75);
+        color: white;
         padding: 6px 10px;
         border-radius: 6px;
-        position: absolute;
-        z-index: 1;
-        top: 0;
-        left: 0;
-        transform: translate(10px, -100%);
+        font-size: 14px;
         white-space: nowrap;
         pointer-events: none;
+        top: var(--mouse-y, 10px);
+        left: var(--mouse-x, 10px);
+        z-index: 999;
     }}
 
-    .tooltip:hover .tooltiptext {{
-        visibility: visible;
+    .hover-image:hover .hover-tooltip {{
+        display: block;
     }}
     </style>
 
-    <div class="tooltip">
+    <div class="hover-image" onmousemove="this.style.setProperty('--mouse-x', event.offsetX + 'px'); this.style.setProperty('--mouse-y', event.offsetY + 'px');">
         <img src="data:image/jpeg;base64,{encoded_image}" style="width:100%; border-radius:10px;">
-        <span class="tooltiptext">Diambil oleh Todd Trapani dari Pexels</span>
+        <div class="hover-tooltip">Diambil oleh Todd Trapani dari Pexels</div>
     </div>
 """, unsafe_allow_html=True)
 
