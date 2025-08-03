@@ -186,7 +186,10 @@ else:
     location=[center_lat, center_lon],
     zoom_start=12,
     tiles="https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
-    attr="Google"
+    attr="Google",
+    name="Google Satellite",
+    overlay=False,
+    control=False,
     )
 
 
