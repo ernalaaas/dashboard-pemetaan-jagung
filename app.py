@@ -64,7 +64,7 @@ st.markdown(f"""
 
     <div class="hover-container">
         <img src="data:image/jpeg;base64,{encoded_image}" alt="Header">
-        <div class="hover-text">Pemetaan Fase Tumbuh Jagung</div>
+        <div class="hover-text">Diambil oleh Todd Trapani dari Pexels</div>
     </div>
 """, unsafe_allow_html=True)
 
