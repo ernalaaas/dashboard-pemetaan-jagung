@@ -6,6 +6,7 @@ import os
 from folium import Element
 import json
 import geopandas as gpd
+import base64
 
 
 # Tambahkan di bagian atas aplikasi setelah import
@@ -19,21 +20,27 @@ st.markdown("""
 
 # === Tambahkan gambar header (cover)
 #st.image("data/cover_jagung_crop.jpg", use_container_width=True)
-st.markdown("""
+# === BACA GAMBAR dan ubah ke base64 ===
+image_path = "data/cover_jagung_crop.jpg"
+with open(image_path, "rb") as img_file:
+    encoded_image = base64.b64encode(img_file.read()).decode()
+
+# === HTML + CSS Hover Effect ===
+st.markdown(f"""
     <style>
-    .hover-container {
+    .hover-container {{
         position: relative;
         width: 100%;
         max-width: 500px;
         margin: auto;
-    }
+    }}
 
-    .hover-container img {
+    .hover-container img {{
         width: 100%;
         border-radius: 10px;
-    }
+    }}
 
-    .hover-text {
+    .hover-text {{
         position: absolute;
         top: 50%;
         left: 50%;
@@ -46,15 +53,15 @@ st.markdown("""
         transition: opacity 0.3s ease;
         font-size: 18px;
         text-align: center;
-    }
+    }}
 
-    .hover-container:hover .hover-text {
+    .hover-container:hover .hover-text {{
         opacity: 1;
-    }
+    }}
     </style>
 
     <div class="hover-container">
-        <img src="data/cover_jagung_crop.jpg" alt="Header">
+        <img src="data:image/jpeg;base64,{encoded_image}" alt="Header">
         <div class="hover-text">Pemetaan Fase Tumbuh Jagung</div>
     </div>
 """, unsafe_allow_html=True)
@@ -85,8 +92,6 @@ with st.sidebar:
     opacity = st.slider("🌓 Transparansi Layer", 0.0, 1.0, 0.6)
 
 
-import streamlit as st
-import base64
 
 # === Data Kelas ===
 kelas_list = [
