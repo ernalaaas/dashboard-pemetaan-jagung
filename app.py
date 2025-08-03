@@ -182,28 +182,20 @@ else:
     center_lat = (image_bounds[0][0] + image_bounds[1][0]) / 2
     center_lon = (image_bounds[0][1] + image_bounds[1][1]) / 2
 
-    # Inisialisasi peta dengan basemap Google Satellite
     m = folium.Map(
-        location=[center_lat, center_lon],
-        zoom_start=12,
-        control_scale=True
+    location=[center_lat, center_lon],
+    zoom_start=12,
+    tiles="https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
+    attr="Google"
     )
 
-    # Tambahkan Google Satellite secara eksplisit
-    folium.TileLayer(
-        tiles="https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
-        attr="Google",
-        name="Google Satellite",
-        overlay=False,
-        control=False  # Tidak ditampilkan sebagai opsi di LayerControl
-    ).add_to(m)
 
     # === Tambah batas kecamatan (GeoJSON)
     geojson_path = "data/kecamatanSHP.geojson"
     if os.path.exists(geojson_path):
         with open(geojson_path, "r", encoding="utf-8") as f:
             geojson_data = json.load(f)
-
+    
         folium.GeoJson(
             geojson_data,
             name="Batas Kecamatan",
@@ -213,7 +205,7 @@ else:
                 "weight": 0.5
             },
             tooltip=folium.GeoJsonTooltip(
-                fields=["NAMOBJ"],
+                fields=["NAMOBJ"],  # sesuaikan dengan nama kolom kecamatan di file .shp/.geojson
                 aliases=["Kecamatan:"],
                 localize=True,
                 sticky=True,
@@ -223,6 +215,7 @@ else:
             )
         ).add_to(m)
 
+
     # Overlay klasifikasi
     ImageOverlay(
         image=image_path,
@@ -231,24 +224,71 @@ else:
         name=f"Klasifikasi {bulan_pilihan}"
     ).add_to(m)
 
-    # Legenda warna
-    legend_html = """ ... """  # Tetap sama
+    # === Legenda warna
+    legend_html = """
+    <div style="
+        position: absolute; 
+        bottom: 20px; left: 20px; width: 240px; z-index:9999;
+        background-color: white; padding: 10px; border:1px solid #ccc;
+        font-size: 14px; color: #000;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        border-radius: 5px;
+    ">
+    <b>Legenda:</b><br>
+    <div style="margin-top:5px;">
+    <span style='display:inline-block; width:15px; height:15px; background-color:#009c00; margin-right:8px;'></span>Vegetatif Awal (VA)<br>
+    <span style='display:inline-block; width:15px; height:15px; background-color:#cdbb5d; margin-right:8px;'></span>Vegetatif Akhir (VR)<br>
+    <span style='display:inline-block; width:15px; height:15px; background-color:#ffef00; margin-right:8px;'></span>Reproduktif Awal (RA)<br>
+    <span style='display:inline-block; width:15px; height:15px; background-color:#ff4400; margin-right:8px;'></span>Reproduktif Akhir (RR)<br>
+    <span style='display:inline-block; width:15px; height:15px; background-color:#0010ff; margin-right:8px;'></span>Bukan Jagung
+    </div>
+    </div>
+    """
     m.get_root().html.add_child(Element(legend_html))
 
-    # Judul peta
-    judul_peta_html = f""" ... """  # Tetap sama
+    # === Judul peta di bawah tengah
+    judul_peta_html = f"""
+    <div style="
+        position: absolute;
+        bottom: 50px; left: 50%; transform: translateX(-50%);
+        z-index: 9999;
+        background-color: #ffffffee;
+        padding: 10px 24px;
+        border: 2px solid #666;
+        font-size: 16px;
+        border-radius: 6px;
+        font-weight: bold;
+        color: #333;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    ">
+    📍 Pemetaan Fase Tumbuh Jagung {nama_bulan_indo} {tahun}
+    </div>
+    """
+
     m.get_root().html.add_child(Element(judul_peta_html))
 
-    # Tambahkan LayerControl hanya untuk overlay
-    folium.LayerControl(collapsed=False).add_to(m)
-
-    # Tampilkan peta di tengah laman
+    folium.LayerControl().add_to(m)
+    # === Tambahkan jarak vertikal
     st.markdown("<br><br>", unsafe_allow_html=True)
+    
+    # === Tampilkan peta di tengah laman
     col1, col2, col3 = st.columns([1, 6, 1])
     with col2:
         st_folium(m, width=900, height=600)
-
-        st.markdown(""" ... """, unsafe_allow_html=True)  # Script scroll tetap
+    
+        # Auto-scroll ke peta setelah render
+        st.markdown("""
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(function() {
+                const mapFrame = window.parent.document.querySelector('iframe[srcdoc*="folium"]');
+                if (mapFrame) {
+                    mapFrame.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 500); // Delay 0.5 detik agar iframe siap
+        });
+        </script>
+        """, unsafe_allow_html=True)
 
 
 
