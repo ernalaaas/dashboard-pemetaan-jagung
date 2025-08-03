@@ -26,48 +26,41 @@ image_path = "data/cover_jagung_crop.jpg"
 with open(image_path, "rb") as img_file:
     encoded_image = base64.b64encode(img_file.read()).decode()
 
-# === HTML + CSS Hover Effect ===
 st.markdown(f"""
     <style>
-    .hover-container {{
+    .tooltip {{
         position: relative;
-        width: 100%;
-        height: auto;
-        margin-bottom: 1rem;
+        display: inline-block;
     }}
 
-    .hover-container img {{
-        width: 100%;
-        height: auto;
-        display: block;
-        border-radius: 10px;
-    }}
-
-    .hover-text {{
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: rgba(0, 0, 0, 0.6);
-        color: white;
-        padding: 10px 20px;
-        border-radius: 5px;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        font-size: 18px;
+    .tooltip .tooltiptext {{
+        visibility: hidden;
+        width: auto;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: #fff;
         text-align: center;
+        padding: 6px 10px;
+        border-radius: 6px;
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        transform: translate(10px, -100%);
+        white-space: nowrap;
+        pointer-events: none;
     }}
 
-    .hover-container:hover .hover-text {{
-        opacity: 1;
+    .tooltip:hover .tooltiptext {{
+        visibility: visible;
     }}
     </style>
 
-    <div class="hover-container">
-        <img src="data:image/jpeg;base64,{encoded_image}" alt="Header">
-        <div class="hover-text">Diambil oleh Todd Trapani dari Pexels</div>
+    <div class="tooltip">
+        <img src="data:image/jpeg;base64,{encoded_image}" style="width:100%; border-radius:10px;">
+        <span class="tooltiptext">Diambil oleh Todd Trapani dari Pexels</span>
     </div>
 """, unsafe_allow_html=True)
+
 
 
 # === Konfigurasi halaman
