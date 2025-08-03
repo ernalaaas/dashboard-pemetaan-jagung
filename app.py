@@ -183,16 +183,20 @@ else:
     center_lon = (image_bounds[0][1] + image_bounds[1][1]) / 2
 
     m = folium.Map(
-    location=[center_lat, center_lon],
-    zoom_start=12,
-    tiles="https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
-    attr="Google",
-    name="Google Satellite",
-    overlay=False,
-    control=False,
+        location=[center_lat, center_lon],
+        zoom_start=12,
+        control_scale=True,
+        tiles=None  # ini penting!
     )
 
-
+    folium.TileLayer(
+        tiles="https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
+        attr="Google",
+        name="Google Satellite",
+        overlay=False,
+        control=False
+    ).add_to(m)
+    
     # === Tambah batas kecamatan (GeoJSON)
     geojson_path = "data/kecamatanSHP.geojson"
     if os.path.exists(geojson_path):
