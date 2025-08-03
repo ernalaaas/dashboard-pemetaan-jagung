@@ -376,7 +376,7 @@ Hal ini tentu sangat membantu petani, penyuluh, hingga pengambil kebijakan dalam
 <div style='text-align: justify;'>
 Dengan memanfaatkan teknologi penginderaan jauh dan model <i>machine learning</i>, pemantauan pertumbuhan jagung kini bisa dilakukan secara lebih cepat, efisien, dan mencakup area yang luas. 
 Semoga dashboard ini bisa menjadi langkah kecil menuju pertanian yang lebih cerdas dan berbasis data. 
-Terima kasih sudah menjelajahi dashboard ini — semoga bermanfaat, dan terus dukung pertanian kita tumbuh bersama teknologi!
+Terima kasih sudah menjelajahi dashboard ini. Semoga bermanfaat, dan terus dukung pertanian kita tumbuh bersama teknologi!
 </div>
 """, unsafe_allow_html=True)
 
