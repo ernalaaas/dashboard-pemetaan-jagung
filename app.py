@@ -171,6 +171,7 @@ with col2:
     st.markdown(data['deskripsi'], unsafe_allow_html=True)
 
 
+    # Tampilkan gambar
     if kelas == "Bukan Jagung":
         col_a, col_b = st.columns(2)
         for i, col in enumerate([col_a, col_b]):
@@ -196,11 +197,10 @@ with col2:
                     </div>
                 """
                 st.markdown(img_html, unsafe_allow_html=True)
+    
+    # Setelah semua gambar ditampilkan → tampilkan deskripsi
+    st.markdown(data['deskripsi'], unsafe_allow_html=True)
 
-    st.markdown(
-        f"<p style='text-align:center; font-size:16px; margin-top:10px;'>{data['deskripsi']}</p>",
-        unsafe_allow_html=True
-    )
 
     st.markdown(
         f"<p style='text-align:center; color:gray;'>Kelas {st.session_state.kelas_index + 1} dari {len(kelas_list)}</p>",
