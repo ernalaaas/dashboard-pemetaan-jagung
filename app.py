@@ -198,7 +198,8 @@ with col2:
                 st.markdown(img_html, unsafe_allow_html=True)
     
     # Setelah semua gambar ditampilkan → tampilkan deskripsi
-    st.markdown(data['deskripsi'], unsafe_allow_html=True)
+    st.markdown(f"<div style='text-align:center'>{data['deskripsi']}</div>", unsafe_allow_html=True)
+
 
 
     st.markdown(
