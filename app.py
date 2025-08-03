@@ -29,14 +29,18 @@ with open(image_path, "rb") as img_file:
 st.markdown(f"""
     <style>
     .hover-container {{
-        position: relative;
-        width: 100%;
-        max-width: 500px;
-        margin: auto;
+       position: relative;
+        width: 100vw;  /* lebar viewport penuh */
+        height: auto;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
     }}
 
     .hover-container img {{
         width: 100%;
+        height: auto;
+        display: block;
         border-radius: 10px;
     }}
 
