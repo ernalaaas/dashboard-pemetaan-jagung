@@ -168,7 +168,7 @@ with col2:
     kelas = kelas_list[st.session_state.kelas_index]
     data = kelas_opsi[kelas]
 
-    st.markdown(data['deskripsi'], unsafe_allow_html=True)
+    #st.markdown(data['deskripsi'], unsafe_allow_html=True)
 
 
     # Tampilkan gambar
