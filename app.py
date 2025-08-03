@@ -18,7 +18,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # === Tambahkan gambar header (cover)
-st.image("data/cover_jagung_crop.jpg", use_container_width=True)
+#st.image("data/cover_jagung_crop.jpg", use_container_width=True)
 st.markdown("""
     <style>
     .hover-container {
