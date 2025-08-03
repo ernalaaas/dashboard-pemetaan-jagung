@@ -127,7 +127,7 @@ kelas_opsi = {
     },
     "Reproduktif Akhir (RR)": {
         "deskripsi": """
-        Fase ini dimulai saat biji masih bertekstur lembek seperti pasta, dan berlangsung hingga biji mengeras dan tongkol mengering sempurna — siap panen. 
+        Fase ini dimulai saat biji masih bertekstur lembek seperti pasta, dan berlangsung hingga biji mengeras dan tongkol mengering sempurna. 
         Terlihat sebagai: 
         <span style='display:inline-block; width:16px; height:16px; background-color:#ff4400; border:1px solid #000; border-radius:3px; vertical-align:middle;'></span> dalam peta klasifikasi.
         """,
