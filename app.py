@@ -19,6 +19,46 @@ st.markdown("""
 
 # === Tambahkan gambar header (cover)
 st.image("data/cover_jagung_crop.jpg", use_container_width=True)
+st.markdown("""
+    <style>
+    .hover-container {
+        position: relative;
+        width: 100%;
+        max-width: 500px;
+        margin: auto;
+    }
+
+    .hover-container img {
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    .hover-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .hover-container:hover .hover-text {
+        opacity: 1;
+    }
+    </style>
+
+    <div class="hover-container">
+        <img src="data/cover_jagung_crop.jpg" alt="Header">
+        <div class="hover-text">Pemetaan Fase Tumbuh Jagung</div>
+    </div>
+""", unsafe_allow_html=True)
+
 
 # === Konfigurasi halaman
 st.set_page_config(layout="wide")
