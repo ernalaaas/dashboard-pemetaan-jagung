@@ -168,14 +168,8 @@ with col2:
     kelas = kelas_list[st.session_state.kelas_index]
     data = kelas_opsi[kelas]
 
-    st.markdown(
-        dedent(f"""
-        <div style='text-align: center; font-size: 16px; margin-top:10px;'>
-            {data['deskripsi']}
-        </div>
-        """),
-        unsafe_allow_html=True
-    )
+    st.markdown(data['deskripsi'], unsafe_allow_html=True)
+
 
     if kelas == "Bukan Jagung":
         col_a, col_b = st.columns(2)
