@@ -168,7 +168,7 @@ with col2:
     kelas = kelas_list[st.session_state.kelas_index]
     data = kelas_opsi[kelas]
 
-    st.markdown(f"### {kelas}")
+    st.markdown(f"<h2 style='text-align:center'>{kelas}</h2>", unsafe_allow_html=True)
 
     # Tampilkan gambar
     if kelas == "Bukan Jagung":
