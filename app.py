@@ -106,26 +106,43 @@ kelas_list = [
 
 kelas_opsi = {
     "Vegetatif Awal (VA)": {
-        "deskripsi": "Fase Vegetatif Awal dimulai saat daun pertama mulai terlihat, dan berakhir ketika tanaman memiliki sekitar 3 hingga 5 daun yang terbuka sempurna",
+        "deskripsi": """
+        Fase ini dimulai ketika daun pertama jagung mulai muncul, dan berlangsung hingga tanaman memiliki sekitar 3 hingga 5 helai daun yang telah membuka sempurna. 
+        Ditandai dalam klasifikasi dengan warna: <span style='display:inline-block; width:16px; height:16px; background-color:#009c00; border:1px solid #000; border-radius:3px; vertical-align:middle;'></span>
+        """,
         "gambar": ["data/VA.jpg"]
     },
     "Vegetatif Akhir (VR)": {
-        "deskripsi": "Fase Vegetatif Akhir dimulai setelah terbentuknya daun ke-6 hingga daun terakhir yang terbuka sempurna (sekitar daun ke-15 hingga ke-18), dan berakhir saat munculnya malai (bunga jantan)",
+        "deskripsi": """
+        Fase Vegetatif Akhir terjadi setelah terbentuknya daun ke-6 hingga daun terakhir (sekitar daun ke-15 hingga ke-18), dan berakhir ketika malai (bunga jantan) mulai muncul. 
+        Ditandai dengan warna: <span style='display:inline-block; width:16px; height:16px; background-color:#cdbb5d; border:1px solid #000; border-radius:3px; vertical-align:middle;'></span>
+        """,
         "gambar": ["data/VR.jpg"]
     },
     "Reproduktif Awal (RA)": {
-        "deskripsi": "Fase Reproduktif Awal ditandai dengan munculnya malai (bunga jantan) di bagian atas tanaman serta keluarnya rambut jagung (bunga betina) dari dalam tongkol yang tertutup kelobot. Fase ini berakhir ketika rambut jagung mulai mengering dan biji memasuki tahap masak susu",
+        "deskripsi": """
+        Ditandai dengan munculnya malai (bunga jantan) di bagian atas tanaman serta rambut jagung (bunga betina) yang mulai keluar dari tongkol. 
+        Fase ini berakhir saat rambut jagung mengering dan biji memasuki tahap masak susu. 
+        Warna pada klasifikasi: <span style='display:inline-block; width:16px; height:16px; background-color:#ffef00; border:1px solid #000; border-radius:3px; vertical-align:middle;'></span>
+        """,
         "gambar": ["data/RA.jpg"]
     },
     "Reproduktif Akhir (RR)": {
-        "deskripsi": "Fase Reproduktif Akhir dimulai ketika bagian dalam biji masih bertekstur seperti pasta (belum mengeras), kemudian berlanjut hingga biji mengeras dan tongkol mengering. Rambut jagung semakin kering dan menghitam, hingga seluruh bagian tongkol hampir kering dan siap untuk dipanen",
+        "deskripsi": """
+        Fase ini dimulai saat biji masih bertekstur lembek seperti pasta, dan berlangsung hingga biji mengeras dan tongkol mengering sempurna — siap panen. 
+        Terlihat sebagai: <span style='display:inline-block; width:16px; height:16px; background-color:#ff4400; border:1px solid #000; border-radius:3px; vertical-align:middle;'></span> dalam peta klasifikasi.
+        """,
         "gambar": ["data/RR.jpg"]
     },
     "Bukan Jagung": {
-        "deskripsi": "Wilayah yang bukan termasuk area pertanaman jagung, seperti hutan, permukiman, atau sawah",
+        "deskripsi": """
+        Area ini mencakup wilayah non-pertanaman jagung seperti permukiman, sawah, hutan, atau lahan lain. 
+        Diidentifikasi dengan warna biru: <span style='display:inline-block; width:16px; height:16px; background-color:#0010ff; border:1px solid #000; border-radius:3px; vertical-align:middle;'></span>
+        """,
         "gambar": ["data/BJ1.jpg", "data/BJ2.jpg"]
     }
 }
+
 
 # === Inisialisasi Index ===
 if "kelas_index" not in st.session_state:
